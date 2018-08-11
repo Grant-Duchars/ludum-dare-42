@@ -1,6 +1,8 @@
 import pygame as pg, sys, math, time, os
 class Folder:
     def __init__(self):
+        self.width = 1920
+        self.height = 1080
         self.background = pg.image.load("assets/background.png")
         self.startscreen = pg.display.set_mode((self.width, self.height),pg.NOFRAME)
     def runScreen(self):
