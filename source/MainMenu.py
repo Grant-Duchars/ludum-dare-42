@@ -15,6 +15,12 @@ class Main_Menu:
         self.background = self.background.convert()
         self.screen_color = (128, 0, 0)
         self.background = pg.image.load("assets/background.png")
+        self.desk = pg.image.load("assets/desk.png")
+        self.computer = pg.image.load("assets/computer.png")
+        self.fileFolder = pg.image.load("assets/file_folder_closed.png")
+        self.phone = pg.image.load("assets/phone.png")
+        self.contacts = pg.image.load("assets/contact_book.png")
+        self.newspaper = pg.image.load("assets/newspaper.png")
         self.clock = pg.time.Clock()
 
     def runScreen(self):
@@ -22,6 +28,7 @@ class Main_Menu:
         pg.init()
         self.startscreen.fill(self.screen_color)
         self.startscreen.blit(self.background, (0,0))
+        self.startscreen.blit(self.desk, (147, 302))
         pg.display.update()
         while True:
             self.clock.tick(10)
