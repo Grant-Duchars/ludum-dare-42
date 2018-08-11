@@ -12,7 +12,7 @@ class Main():
         # Starts the main menu
         self.main_menu = MainMenu.Main_Menu()
         self.folder_screen = FolderScreen.Folder()
-        self.main_menu.runScreen()
+        self.folder_screen.runScreen()
         # Sets the screen to game screen
         self.screen = pg.display.set_mode((math.floor(self.width* 3/2), self.height))
 
