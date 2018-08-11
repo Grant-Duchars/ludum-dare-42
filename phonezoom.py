@@ -1,6 +1,7 @@
 import pygame
+
 from IansClasses import *
-from MouseCheck import MouseCheck
+#from MouseCheck import MouseCheck
 pygame.init()
 running = True
 WHITE = (255, 255, 255)
