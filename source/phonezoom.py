@@ -16,7 +16,7 @@ screen.fill(WHITE)
 
 all_sprites_list = pygame.sprite.Group()
 
-phone = MakeSprite("assets/Phone Zoom.png",0,0)
+phone = MakeSprite("assets/Phone Zoom Screens/Phone Zoom.png",0,0)
 
 all_sprites_list.add(phone)
 while running == True:
