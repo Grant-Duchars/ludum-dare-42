@@ -1,12 +1,9 @@
-import pygame as pg, sys, math, time
+import pygame as pg, sys, math, time, os
 from source import MainMenu
 
 class Main():
 
     def __init__(self):
-        # Initial Window Size
-        self.width = 1000
-        self.height = 1000
         # Game Clock
         self.clock = pg.time.Clock()
 
