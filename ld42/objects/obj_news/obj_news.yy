@@ -1,8 +1,8 @@
 {
-    "id": "c69c6251-b1de-4164-b884-0c5bfa06c25e",
+    "id": "5b5d6312-e9c2-4f06-818a-c69d25ea327d",
     "modelName": "GMObject",
     "mvc": "1.0",
-    "name": "obj_phone",
+    "name": "obj_news",
     "eventList": [
         
     ],
@@ -24,6 +24,6 @@
     "physicsStartAwake": true,
     "properties": null,
     "solid": false,
-    "spriteId": "cb9e7a89-3809-4645-99e4-bae4ae24c203",
+    "spriteId": "10719d16-2d21-44e3-9aac-06623f93aaf2",
     "visible": true
 }

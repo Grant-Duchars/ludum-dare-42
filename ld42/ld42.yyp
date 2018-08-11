@@ -96,6 +96,25 @@
             }
         },
         {
+            "Key": "10719d16-2d21-44e3-9aac-06623f93aaf2",
+            "Value": {
+                "id": "45273625-d436-4e6f-916e-172fcb7a7849",
+                "modelName": "GMResourceInfo",
+                "mvc": "1.0",
+                "configDeltaFiles": [
+                    
+                ],
+                "configDeltas": [
+                    
+                ],
+                "resourceCreationConfigs": [
+                    "default"
+                ],
+                "resourcePath": "sprites\/spr_news\/spr_news.yy",
+                "resourceType": "GMSprite"
+            }
+        },
+        {
             "Key": "15f4d45b-3eeb-4310-97c6-08d13cd8094b",
             "Value": {
                 "id": "5ef51954-258b-482b-9f4a-8a0330c2bc84",
@@ -112,6 +131,25 @@
                 ],
                 "resourcePath": "views\/15f4d45b-3eeb-4310-97c6-08d13cd8094b.yy",
                 "resourceType": "GMFolder"
+            }
+        },
+        {
+            "Key": "1cda6c8b-fe67-4240-aae8-a97f90263b2c",
+            "Value": {
+                "id": "e974c23d-2462-4901-8004-38e8f8ac03f7",
+                "modelName": "GMResourceInfo",
+                "mvc": "1.0",
+                "configDeltaFiles": [
+                    
+                ],
+                "configDeltas": [
+                    
+                ],
+                "resourceCreationConfigs": [
+                    "default"
+                ],
+                "resourcePath": "sprites\/spr_files\/spr_files.yy",
+                "resourceType": "GMSprite"
             }
         },
         {
@@ -169,6 +207,44 @@
                 ],
                 "resourcePath": "sprites\/spr_desk\/spr_desk.yy",
                 "resourceType": "GMSprite"
+            }
+        },
+        {
+            "Key": "5b5d6312-e9c2-4f06-818a-c69d25ea327d",
+            "Value": {
+                "id": "e2206aaf-7c23-4498-9cba-963a9c52e985",
+                "modelName": "GMResourceInfo",
+                "mvc": "1.0",
+                "configDeltaFiles": [
+                    
+                ],
+                "configDeltas": [
+                    
+                ],
+                "resourceCreationConfigs": [
+                    "default"
+                ],
+                "resourcePath": "objects\/obj_news\/obj_news.yy",
+                "resourceType": "GMObject"
+            }
+        },
+        {
+            "Key": "5c61d44e-35d0-455b-bb11-52b3c295b111",
+            "Value": {
+                "id": "1d6d86a4-d3c4-4a15-9965-60f6d429653e",
+                "modelName": "GMResourceInfo",
+                "mvc": "1.0",
+                "configDeltaFiles": [
+                    
+                ],
+                "configDeltas": [
+                    
+                ],
+                "resourceCreationConfigs": [
+                    "default"
+                ],
+                "resourcePath": "objects\/obj_files\/obj_files.yy",
+                "resourceType": "GMObject"
             }
         },
         {
@@ -471,7 +547,7 @@
                 "resourceCreationConfigs": [
                     "default"
                 ],
-                "resourcePath": "rooms\/room0\/room0.yy",
+                "resourcePath": "rooms\/homescreen\/homescreen.yy",
                 "resourceType": "GMRoom"
             }
         },
