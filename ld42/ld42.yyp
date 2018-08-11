@@ -362,6 +362,25 @@
             }
         },
         {
+            "Key": "6914c954-c226-4971-bfde-99c28c74551d",
+            "Value": {
+                "id": "23bcd03e-479c-41a0-b113-69f961a3f15b",
+                "modelName": "GMResourceInfo",
+                "mvc": "1.0",
+                "configDeltaFiles": [
+                    
+                ],
+                "configDeltas": [
+                    
+                ],
+                "resourceCreationConfigs": [
+                    "default"
+                ],
+                "resourcePath": "scripts\/AddRep\/AddRep.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
             "Key": "6fcce6e7-34c5-42d9-a73d-8e92608f105e",
             "Value": {
                 "id": "7c860465-049d-46a5-9516-672c2de68cba",
@@ -552,6 +571,25 @@
             }
         },
         {
+            "Key": "867925f7-00d6-4cd0-80cb-0d6417f51842",
+            "Value": {
+                "id": "85be96c1-b748-4864-bec9-c7d605e3b035",
+                "modelName": "GMResourceInfo",
+                "mvc": "1.0",
+                "configDeltaFiles": [
+                    
+                ],
+                "configDeltas": [
+                    
+                ],
+                "resourceCreationConfigs": [
+                    "default"
+                ],
+                "resourcePath": "scripts\/FactionSetup\/FactionSetup.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
             "Key": "86f6ab25-c555-4275-9c52-d85e50dea144",
             "Value": {
                 "id": "c463413b-ff92-4ab5-a1e5-8245ad3179d0",
@@ -663,6 +701,25 @@
                 ],
                 "resourcePath": "views\/911cb9c8-1a5c-49dc-a499-9d6c17bc0b2e.yy",
                 "resourceType": "GMFolder"
+            }
+        },
+        {
+            "Key": "9b3cf8ba-4b86-46b5-a438-9f950116c15d",
+            "Value": {
+                "id": "5cd5a19e-ab40-40ae-809b-7772e487f8cb",
+                "modelName": "GMResourceInfo",
+                "mvc": "1.0",
+                "configDeltaFiles": [
+                    
+                ],
+                "configDeltas": [
+                    
+                ],
+                "resourceCreationConfigs": [
+                    "default"
+                ],
+                "resourcePath": "objects\/background_api\/background_api.yy",
+                "resourceType": "GMObject"
             }
         },
         {
@@ -1104,7 +1161,8 @@
         }
     ],
     "script_order": [
-        
+        "6914c954-c226-4971-bfde-99c28c74551d",
+        "867925f7-00d6-4cd0-80cb-0d6417f51842"
     ],
     "tutorial": ""
 }
