@@ -1,5 +1,5 @@
 import pygame as pg, sys, math, time, os
-from source import MainMenu, DetectMouse
+from source import MainMenu, DetectMouse, FolderScreen
 
 class Main():
 
@@ -14,6 +14,7 @@ class Main():
         self.main_menu.runScreen()
         # Init DetectMouse
         self.detect_mouse = DetectMouse.Detect_Mouse()
+        self.folder_screen = FolderScreen.Folder()
         # Main Game Loop
         while True:
             self.clock.tick(5)
@@ -29,7 +30,7 @@ class Main():
                         print ("Newspaper")
                     elif self.detect_mouse.MouseCheck(179,488,706,918) == True:
                         # Detects a mouse click on the File Folder
-                        print ("File Folder")
+                        self.folder_screen.runScreen()
                     elif self.detect_mouse.MouseCheck(692,1226,345,814) == True:
                         # Detects a mouse click on the Computer
                         print ("Computer")
@@ -42,7 +43,7 @@ class Main():
             if key[pg.K_ESCAPE]: #If Escape key is pressed, close window.
                 sys.exit()
             # Detecting for clicks on main screen assets
-                
+
 
 def main():
     pg.init()
