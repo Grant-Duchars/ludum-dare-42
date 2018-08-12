@@ -11,7 +11,7 @@ class Folder:
             self.width = 1920
             self.height = 1080
         self.background = pg.image.load("assets/background.png")
-        self.folderOpen = pg.image.load("assets/FileFolderOpen.png")
+        self.folderOpen = pg.image.load("assets/File_Folder_Open.png")
         self.backButton = pg.image.load("assets/back_button.png")
         self.folderOpen = pg.transform.scale(self.folderOpen,(1720,880))
         self.screen_color = (128, 0, 0)
