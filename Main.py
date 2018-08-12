@@ -23,24 +23,26 @@ class Main():
             for event in events: #If X is clicked, don't crash the window.
                 if event.type == pg.QUIT:
                     sys.exit()
+                if event.type == pg.MOUSEBUTTONDOWN:
+                    if self.detect_mouse.MouseCheck(179,407,335,685) == True:
+                        # Detects a mouse click on the Newspaper
+                        print ("Newspaper")
+                    elif self.detect_mouse.MouseCheck(179,488,706,918) == True:
+                        # Detects a mouse click on the File Folder
+                        print ("File Folder")
+                    elif self.detect_mouse.MouseCheck(692,1226,345,814) == True:
+                        # Detects a mouse click on the Computer
+                        print ("Computer")
+                    elif self.detect_mouse.MouseCheck(1464,1692,335,513) == True:
+                        # Detects a mouse click on the Phone
+                        print ("Phone")
+                    elif self.detect_mouse.MouseCheck(1382,1552,570,813) == True:
+                        # Detects a mouse click on the Contacts Book
+                        print ("Contacts")
             if key[pg.K_ESCAPE]: #If Escape key is pressed, close window.
                 sys.exit()
             # Detecting for clicks on main screen assets
-            if self.detect_mouse.MouseCheck(179,407,335,685) == True:
-                # Detects a mouse click on the Newspaper
-                print ("Newspaper")
-            elif self.detect_mouse.MouseCheck(179,488,706,918) == True:
-                # Detects a mouse click on the File Folder
-                print ("File Folder")
-            elif self.detect_mouse.MouseCheck(692,1226,345,814) == True:
-                # Detects a mouse click on the Computer
-                print ("Computer")
-            elif self.detect_mouse.MouseCheck(1464,1692,335,513) == True:
-                # Detects a mouse click on the Phone
-                print ("Phone")
-            elif self.detect_mouse.MouseCheck(1382,1552,570,813) == True:
-                # Detects a mouse click on the Contacts Book
-                print ("Contacts")
+                
 
 def main():
     pg.init()
