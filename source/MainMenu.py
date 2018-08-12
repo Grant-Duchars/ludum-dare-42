@@ -9,8 +9,7 @@ class Main_Menu:
         self.winX = 0
         self.winY = 0
         os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (self.winX,self.winY)
-        #self.startscreen = pg.display.set_mode((math.floor(self.screen_width), math.floor(self.screen_height)),pg.NOFRAME)
-        self.startscreen = pg.display.set_mode((pg.display.Info().current_w, pg.display.Info().current_h),pg.NOFRAME)
+        self.startscreen = pg.display.set_mode((math.floor(self.screen_width), math.floor(self.screen_height)),pg.NOFRAME)
         pg.display.set_caption("Ludum Dare 42")
         self.background = pg.Surface(self.startscreen.get_size())
         self.background = self.background.convert()
