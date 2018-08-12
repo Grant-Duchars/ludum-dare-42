@@ -22,7 +22,10 @@ class Folder:
         self.pageTwoL = pg.transform.scale(self.pageTwoL,(700*math.floor(self.screen_width/1920),800*math.floor(self.screen_height/1080)))
         self.pageThreeL = pg.image.load("assets/greenTabL.png")
         self.pageThreeL = pg.transform.scale(self.pageThreeL,(700*math.floor(self.screen_width/1920),800*math.floor(self.screen_height/1080)))
+        self.pageFour = pg.image.load("assets/noTab.png")
+        self.pageFour = pg.transform.scale(self.pageFour,(700*math.floor(self.screen_width/1920),800*math.floor(self.screen_height/1080)))
         self.backButton = pg.image.load("assets/back_button.png")
+        self.backButton = pg.transform.scale(self.backButton,(124*math.floor(self.screen_width/1920),125*math.floor(self.screen_height/1080)))
         self.screen_color = (128, 0, 0)
         self.clock = pg.time.Clock()
         self.tabLoc = [0, 0, 0]
@@ -39,7 +42,7 @@ class Folder:
         self.startscreen.blit(self.pageTwoR, (955*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
         self.startscreen.blit(self.pageOneR, (955*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
         self.startscreen.blit(self.backButton, (0,954*math.floor(self.screen_height/1080)))
-
+        pg.display.update()
     def clickTab(self):
         if self.detect_mouse.MouseCheck(330*math.floor(self.screen_width/1920),365*math.floor(self.screen_width/1920),200*math.floor(self.screen_height/1080),350*math.floor(self.screen_height/1080)) == True and self.tabLoc[0] == 1:
             self.tabLoc = [0, 0, 0]
@@ -90,5 +93,6 @@ class Folder:
             self.startscreen.blit(self.pageOneL, (255*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
             self.startscreen.blit(self.pageTwoL, (255*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
             self.startscreen.blit(self.pageThreeL, (255*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
+            self.startscreen.blit(self.pageFour, (955*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
             self.startscreen.blit(self.backButton, (0,954*math.floor(self.screen_height/1080)))
         pg.display.update()
