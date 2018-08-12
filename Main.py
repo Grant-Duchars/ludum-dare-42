@@ -1,5 +1,6 @@
 import pygame as pg, sys, math, time, os, ctypes, platform
-from source import MainMenu, DetectMouse, FolderScreen, ContactBook, ComputerScreen, NewspaperScreen
+from random import randint
+from source import MainMenu, DetectMouse, FolderScreen, ContactBook, ComputerScreen, NewspaperScreen, District, Turns
 
 class Main():
 
@@ -24,6 +25,8 @@ class Main():
         self.curScreen = 0
         # Desk = 0, Newspaper = 1, Folder = 2,
         # Computer = 3, Phone = 4, Contacts = 5.
+        self.startPop = 0
+        self.popGoal = 0
 
     def runGame(self):
         """Runs the Game"""
@@ -32,6 +35,21 @@ class Main():
         self.main_menu.runScreen()
         # Init DetectMouse
         self.detect_mouse = DetectMouse.Detect_Mouse()
+        # Create Districts
+        self.district1 = District.Create_District("District1", randint(-20,20), randint(200000,250000),   300000)
+        self.district2 = District.Create_District("District2", randint(-20,20), randint(200000,300000),   500000)
+        self.district3 = District.Create_District("District3", randint(-20,20), randint(500000,700000),   1000000)
+        self.district4 = District.Create_District("District4", randint(-20,20), randint(600000,1000000),  1250000)
+        self.district5 = District.Create_District("District5", randint(-20,20), randint(1500000,1750000), 2000000)
+        self.district6 = District.Create_District("District6", randint(-20,20), randint(800000,1000000),  1200000)
+        self.district7 = District.Create_District("District7", randint(-20,20), randint(500000,700000),   900000)
+        self.district8 = District.Create_District("District8", randint(-20,20), randint(500000,700000),   750000)
+        # Gets current pop
+        self.startPop = self.district1.getPop() + self.district2.getPop() + self.district3.getPop() + self.district4.getPop() + self.district5.getPop() + self.district6.getPop() + self.district7.getPop() + self.district8.getPop()
+        # Generates main goal
+        self.popGoal = math.floor(self.startPop * (1/3))
+        # Init Turns
+        self.turnManager = Turns.Turns(21, self.startPop, self.popGoal)
         # Init Folder Screen
         self.folder_screen = FolderScreen.Folder(self.screen_width, self.screen_height)
         # Init Contacts Screen

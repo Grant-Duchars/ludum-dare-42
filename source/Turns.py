@@ -18,7 +18,7 @@ class Turns:
         self.totalDays = self.totalDays - 1
         if self.totalDays < 0 and self.popGoal < self.curPop:
             return 3
-        elif self.totalDays < 0 and self.popGoal > self.curPop:
+        elif self.totalDays < 0 and self.popGoal >= self.curPop:
             return 2
         else:
             return 1
