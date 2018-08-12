@@ -3,7 +3,6 @@ import pygame as pg, sys, time, math, os, platform, ctypes
 class Main_Menu:
 
     def __init__(self):
-        # Screen Settings
         if (platform.system() == "Windows") == True:
             ctypes.windll.user32.SetProcessDPIAware()
             self.width = ctypes.windll.user32.GetSystemMetrics(0)
