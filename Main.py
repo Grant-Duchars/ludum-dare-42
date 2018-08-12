@@ -13,8 +13,8 @@ class Main():
             self.os_is_windows = False
         if (platform.system() == "Windows") == True:
             ctypes.windll.user32.SetProcessDPIAware()
-            self.width = ctypes.windll.user32.GetSystemMetrics(0)
-            self.height = ctypes.windll.user32.GetSystemMetrics(0)
+            self.width = pg.display.Info().current_w
+            self.height = pg.display.Info().current_h
         else:
             self.width = 1920
             self.height = 1080
@@ -43,7 +43,7 @@ class Main():
 
         # Main Game Loop
         while True:
-            self.clock.tick(5)
+            self.clock.tick(10)
             # Handles exiting the window
             events = pg.event.get()
             key = pg.key.get_pressed()
@@ -68,26 +68,26 @@ class Main():
                             self.curScreen = 5
                 elif self.curScreen == 1:
                     if event.type == pg.MOUSEBUTTONDOWN:
-                        if self.detect_mouse.MouseCheck(0,122,954,1080) == True:
+                        if self.detect_mouse.MouseCheck(0,122*math.floor(self.screen_width/1920),954*math.floor(self.screen_height/1080),1080*math.floor(self.screen_height/1080)) == True:
                             self.main_menu.runScreen()
                             self.curScreen = 0
                 elif self.curScreen == 2:
                     if event.type == pg.MOUSEBUTTONDOWN:
                         self.folder_screen.clickTab()
-                        if self.detect_mouse.MouseCheck(0,122,954,1080) == True:
+                        if self.detect_mouse.MouseCheck(0,122*math.floor(self.screen_width/1920),954*math.floor(self.screen_height/1080),1080*math.floor(self.screen_height/1080)) == True:
                             self.main_menu.runScreen()
                             self.curScreen = 0
                 elif self.curScreen == 3:
                     if event.type == pg.MOUSEBUTTONDOWN:
-                        if self.detect_mouse.MouseCheck(0,122,954,1080) == True:
+                        if self.detect_mouse.MouseCheck(0,122*math.floor(self.screen_width/1920),954*math.floor(self.screen_height/1080),1080*math.floor(self.screen_height/1080)) == True:
                             self.main_menu.runScreen()
                             self.curScreen = 0
                 elif self.curScreen == 5:
                     if event.type == pg.MOUSEBUTTONDOWN:
-                        if self.detect_mouse.MouseCheck(0,122,954,1080) == True:
+                        if self.detect_mouse.MouseCheck(0,122*math.floor(self.screen_width/1920),954*math.floor(self.screen_height/1080),1080*math.floor(self.screen_height/1080)) == True:
                             self.main_menu.runScreen()
                             self.curScreen = 0
-                
+
             if key[pg.K_ESCAPE]: #If Escape key is pressed, close window.
                 sys.exit()
 
