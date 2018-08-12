@@ -19,7 +19,7 @@ class Main():
     def runGame(self):
         """Runs the Game"""
         # Starts the main menu
-        self.main_menu = MainMenu.Main_Menu()
+        self.main_menu = MainMenu.Main_Menu(self.screen_width,self.screen_height)
         self.main_menu.runScreen()
         # Init DetectMouse
         self.detect_mouse = DetectMouse.Detect_Mouse()
@@ -31,6 +31,7 @@ class Main():
         self.computer_screen = ComputerScreen.Computer_Screen()
         # Init Newspaper Screen
         self.newspaper_screen = NewspaperScreen.Newspaper_Screen()
+
         # Main Game Loop
         while True:
             self.clock.tick(5)
@@ -42,18 +43,18 @@ class Main():
                     sys.exit()
                 if self.curScreen == 0:
                     if event.type == pg.MOUSEBUTTONDOWN:
-                        if self.detect_mouse.MouseCheck(179,407,335,685) == True: # Newspaper
+                        if self.detect_mouse.MouseCheck(179*math.floor(self.screen_width/1920),407*math.floor(self.screen_width/1920),335*math.floor(self.screen_height/1080),685*math.floor(self.screen_height/1080)) == True:
                             self.newspaper_screen.runScreen()
                             self.curScreen = 1
-                        elif self.detect_mouse.MouseCheck(179,488,706,918) == True: # File Folder
+                        elif self.detect_mouse.MouseCheck(179*math.floor(self.screen_width/1920),488*math.floor(self.screen_width/1920),706*math.floor(self.screen_height/1080),918*math.floor(self.screen_height/1080)) == True:
                             self.folder_screen.runScreen()
                             self.curScreen = 2
-                        elif self.detect_mouse.MouseCheck(692,1226,345,814) == True: # Computer
+                        elif self.detect_mouse.MouseCheck(692*math.floor(self.screen_width/1920),1226*math.floor(self.screen_width/1920),345*math.floor(self.screen_height/1080),814*math.floor(self.screen_height/1080)) == True:
                             self.computer_screen.runScreen()
                             self.curScreen = 3
-                        elif self.detect_mouse.MouseCheck(1464,1692,335,513) == True: # Phone
+                        elif self.detect_mouse.MouseCheck(1464*math.floor(self.screen_width/1920),1692*math.floor(self.screen_width/1920),335*math.floor(self.screen_height/1080),513*math.floor(self.screen_height/1080)) == True:
                             self.curScreen = 4
-                        elif self.detect_mouse.MouseCheck(1382,1552,570,813) == True: # Contacts
+                        elif self.detect_mouse.MouseCheck(1382*math.floor(self.screen_width/1920),1552*math.floor(self.screen_width/1920),570*math.floor(self.screen_height/1080),813*math.floor(self.screen_height/1080)) == True:
                             self.contact_book.runScreen()
                             self.curScreen = 5
                 elif self.curScreen == 1:
@@ -76,7 +77,6 @@ class Main():
                         if self.detect_mouse.MouseCheck(0,122,954,1080) == True:
                             self.main_menu.runScreen()
                             self.curScreen = 0
-
             if key[pg.K_ESCAPE]: #If Escape key is pressed, close window.
                 sys.exit()
 
