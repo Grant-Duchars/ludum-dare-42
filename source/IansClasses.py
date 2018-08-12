@@ -3,20 +3,20 @@ WHITE = (255, 255, 255)
 
 
 '''
-Creates a Sprite
+# Creates a Sprite
 
-Format:
+# Format:
 
-MakeSprite("filename.filextension", xPos, yPos)
+# MakeSprite("filename.filextension", xPos, yPos)
 
-Example:
+# Example:
 
-    penis = MakeSprite("penis.png", 0, 0)
+#     penis = MakeSprite("penis.png", 0, 0)
 
-The above code makes an object penis with the sprite from "penis.png"
-Remember you still have to stage your sprite
-
+# The above code makes an object penis with the sprite from "penis.png"
+# Remember you still have to stage your sprite
 '''
+
 class MakeSprite(pygame.sprite.Sprite):
 
     def __init__(self, filename, xpos, ypos):
@@ -57,7 +57,6 @@ The above code will return the reputation of the han object
 
 The above code will add 2 rep to the han object
 Use negative numbers to subtract rep
-
 '''
 
 class Reputation:
@@ -97,9 +96,4 @@ the boundaries X:925-1095 and Y:100-275
 '''
 
 
-def MouseCheck(xmin, xmax, ymin, ymax):
-    x, y = pygame.mouse.get_pos()
-    if ((x >= xmin) and (x <= xmax)) and ((y >= ymin) and (y <= ymax)):
-        return True
-    else:
-        return False
+

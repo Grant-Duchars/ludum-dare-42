@@ -22,7 +22,6 @@ class Main_Menu:
         self.phone = pg.image.load("assets/phone.png")
         self.contacts = pg.image.load("assets/contact_book.png")
         self.newspaper = pg.image.load("assets/newspaper.png")
-        self.clock = pg.time.Clock()
 
     def runScreen(self):
         '''Starts the main menu screen'''
@@ -36,12 +35,3 @@ class Main_Menu:
         self.startscreen.blit(self.contacts, (1382,570))
         self.startscreen.blit(self.newspaper, (179,335))
         pg.display.update()
-        while True:
-            self.clock.tick(10)
-            events = pg.event.get()
-            key = pg.key.get_pressed()
-            for event in events: #If X is clicked, don't crash the window.
-                if event.type == pg.QUIT:
-                    sys.exit()
-            if key[pg.K_ESCAPE]: #If Escape key is pressed, close window.
-                sys.exit()
