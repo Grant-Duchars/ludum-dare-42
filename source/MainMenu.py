@@ -1,11 +1,15 @@
-import pygame as pg, sys, time, math, os
+import pygame as pg, sys, time, math, os, platform, ctypes
 
 class Main_Menu:
 
-    def __init__(self, screen_width, screen_height):
-        # Screen Settings
-        self.screen_width = screen_width
-        self.screen_height = screen_height
+    def __init__(self):
+        if (platform.system() == "Windows") == True:
+            ctypes.windll.user32.SetProcessDPIAware()
+            self.width = ctypes.windll.user32.GetSystemMetrics(0)
+            self.height = ctypes.windll.user32.GetSystemMetrics(0)
+        else:
+            self.width = 1920
+            self.height = 1080
         self.winX = 0
         self.winY = 0
         os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (self.winX,self.winY)

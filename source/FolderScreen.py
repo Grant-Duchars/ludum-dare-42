@@ -7,7 +7,7 @@ class Folder:
         self.screen_height = screen_height
         self.desk = pg.image.load("assets/Desk.png")
         self.desk = pg.transform.scale(self.desk,(7680*math.floor(self.screen_width/1920),4320*math.floor(self.screen_height/1080)))
-        self.folderOpen = pg.image.load("assets/FileFolderOpen.png")
+        self.folderOpen = pg.image.load("assets/File_Folder_Open.png")
         self.folderOpen = pg.transform.scale(self.folderOpen,(1720*math.floor(self.screen_width/1920),880*math.floor(self.screen_height/1080)))
         self.pageOneR = pg.image.load("assets/redTabR.png")
         self.pageOneR = pg.transform.scale(self.pageOneR,(700*math.floor(self.screen_width/1920),800*math.floor(self.screen_height/1080)))
@@ -21,6 +21,7 @@ class Folder:
         self.pageTwoL = pg.transform.scale(self.pageTwoL,(700*math.floor(self.screen_width/1920),800*math.floor(self.screen_height/1080)))
         self.pageThreeL = pg.image.load("assets/greenTabL.png")
         self.pageThreeL = pg.transform.scale(self.pageThreeL,(700*math.floor(self.screen_width/1920),800*math.floor(self.screen_height/1080)))
+        self.backButton = pg.image.load("assets/back_button.png")
         self.screen_color = (128, 0, 0)
         self.clock = pg.time.Clock()
         self.tabLoc = [0, 0, 0]
@@ -35,6 +36,7 @@ class Folder:
         self.startscreen.blit(self.pageThreeR, (955*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
         self.startscreen.blit(self.pageTwoR, (955*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
         self.startscreen.blit(self.pageOneR, (955*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
+        self.startscreen.blit(self.backButton, (0,954))
 
 #        self.startscreen.blit(self.pageOneL, (255*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
 #        self.startscreen.blit(self.pageTwoL, (255*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))

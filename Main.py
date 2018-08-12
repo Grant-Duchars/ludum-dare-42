@@ -1,19 +1,20 @@
-import pygame as pg, sys, math, time, os
-from source import MainMenu, DetectMouse, FolderScreen
+import pygame as pg, sys, math, time, os, ctypes, platform
+from source import MainMenu, DetectMouse, FolderScreen, ContactBook, ComputerScreen, NewspaperScreen
 
 class Main():
 
     def __init__(self):
         # Game Clock
         self.clock = pg.time.Clock()
-        self.sw=pg.display.Info().current_w
-        self.sh=pg.display.Info().current_h
-        if self.sw/self.sh > (16/9):
-            self.screen_height=math.floor(self.sh)
-            self.screen_width=math.floor(self.sh*(16/9))
+        # Determines Computer's OS
+        if platform.system() == "Windows":
+            self.os_is_windows = True
         else:
-            self.screen_width=math.floor(self.sw)
-            self.screen_height=math.floor(self.sw*(9/16))
+            self.os_is_windows = False
+        # Saves current screen
+        self.curScreen = 0
+        # Desk = 0, Newspaper = 1, Folder = 2,
+        # Computer = 3, Phone = 4, Contacts = 5.
 
     def runGame(self):
         """Runs the Game"""
@@ -22,7 +23,15 @@ class Main():
         self.main_menu.runScreen()
         # Init DetectMouse
         self.detect_mouse = DetectMouse.Detect_Mouse()
-        self.folder_screen = FolderScreen.Folder(self.screen_width,self.screen_height)
+        # Init Folder Screen
+        self.folder_screen = FolderScreen.Folder()
+        # Init Contacts Screen
+        self.contact_book = ContactBook.Contact_Book()
+        # Init Computer Screen
+        self.computer_screen = ComputerScreen.Computer_Screen()
+        # Init Newspaper Screen
+        self.newspaper_screen = NewspaperScreen.Newspaper_Screen()
+
         # Main Game Loop
         while True:
             self.clock.tick(5)
@@ -32,26 +41,44 @@ class Main():
             for event in events: #If X is clicked, don't crash the window.
                 if event.type == pg.QUIT:
                     sys.exit()
-                if event.type == pg.MOUSEBUTTONDOWN:
-                    if self.detect_mouse.MouseCheck(179*math.floor(self.screen_width/1920),407*math.floor(self.screen_width/1920),335*math.floor(self.screen_height/1080),685*math.floor(self.screen_height/1080)) == True:
-                        # Detects a mouse click on the Newspaper
-                        print ("Newspaper")
-                    elif self.detect_mouse.MouseCheck(179*math.floor(self.screen_width/1920),488*math.floor(self.screen_width/1920),706*math.floor(self.screen_height/1080),918*math.floor(self.screen_height/1080)) == True:
-                        # Detects a mouse click on the File Folder
-                        self.folder_screen.runScreen()
-                    elif self.detect_mouse.MouseCheck(692*math.floor(self.screen_width/1920),1226*math.floor(self.screen_width/1920),345*math.floor(self.screen_height/1080),814*math.floor(self.screen_height/1080)) == True:
-                        # Detects a mouse click on the Computer
-                        print ("Computer")
-                    elif self.detect_mouse.MouseCheck(1464*math.floor(self.screen_width/1920),1692*math.floor(self.screen_width/1920),335*math.floor(self.screen_height/1080),513*math.floor(self.screen_height/1080)) == True:
-                        # Detects a mouse click on the Phone
-                        print ("Phone")
-                    elif self.detect_mouse.MouseCheck(1382*math.floor(self.screen_width/1920),1552*math.floor(self.screen_width/1920),570*math.floor(self.screen_height/1080),813*math.floor(self.screen_height/1080)) == True:
-                        # Detects a mouse click on the Contacts Book
-                        print ("Contacts")
+                if self.curScreen == 0:
+                    if event.type == pg.MOUSEBUTTONDOWN:
+                        if self.detect_mouse.MouseCheck(179*math.floor(self.screen_width/1920),407*math.floor(self.screen_width/1920),335*math.floor(self.screen_height/1080),685*math.floor(self.screen_height/1080)) == True:
+                            self.newspaper_screen.runScreen()
+                            self.curScreen = 1
+                        elif self.detect_mouse.MouseCheck(179*math.floor(self.screen_width/1920),488*math.floor(self.screen_width/1920),706*math.floor(self.screen_height/1080),918*math.floor(self.screen_height/1080)) == True:
+                            self.folder_screen.runScreen()
+                            self.curScreen = 2
+                        elif self.detect_mouse.MouseCheck(692*math.floor(self.screen_width/1920),1226*math.floor(self.screen_width/1920),345*math.floor(self.screen_height/1080),814*math.floor(self.screen_height/1080)) == True:
+                            self.computer_screen.runScreen()
+                            self.curScreen = 3
+                        elif self.detect_mouse.MouseCheck(1464*math.floor(self.screen_width/1920),1692*math.floor(self.screen_width/1920),335*math.floor(self.screen_height/1080),513*math.floor(self.screen_height/1080)) == True:
+                            self.curScreen = 4
+                        elif self.detect_mouse.MouseCheck(1382*math.floor(self.screen_width/1920),1552*math.floor(self.screen_width/1920),570*math.floor(self.screen_height/1080),813*math.floor(self.screen_height/1080)) == True:
+                            self.contact_book.runScreen()
+                            self.curScreen = 5
+                elif self.curScreen == 1:
+                    if event.type == pg.MOUSEBUTTONDOWN:
+                        if self.detect_mouse.MouseCheck(0,122,954,1080) == True:
+                            self.main_menu.runScreen()
+                            self.curScreen = 0
+                elif self.curScreen == 2:
+                    if event.type == pg.MOUSEBUTTONDOWN:
+                        if self.detect_mouse.MouseCheck(0,122,954,1080) == True:
+                            self.main_menu.runScreen()
+                            self.curScreen = 0
+                elif self.curScreen == 3:
+                    if event.type == pg.MOUSEBUTTONDOWN:
+                        if self.detect_mouse.MouseCheck(0,122,954,1080) == True:
+                            self.main_menu.runScreen()
+                            self.curScreen = 0
+                elif self.curScreen == 5:
+                    if event.type == pg.MOUSEBUTTONDOWN:
+                        if self.detect_mouse.MouseCheck(0,122,954,1080) == True:
+                            self.main_menu.runScreen()
+                            self.curScreen = 0
             if key[pg.K_ESCAPE]: #If Escape key is pressed, close window.
                 sys.exit()
-            # Detecting for clicks on main screen assets
-
 
 def main():
     pg.init()
