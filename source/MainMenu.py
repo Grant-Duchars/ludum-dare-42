@@ -1,4 +1,4 @@
-import pygame as pg, sys, time, math, os, platform
+import pygame as pg, sys, time, math, os, platform, ctypes
 
 class Main_Menu:
 
