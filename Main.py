@@ -11,6 +11,15 @@ class Main():
             self.os_is_windows = True
         else:
             self.os_is_windows = False
+        if (platform.system() == "Windows") == True:
+            ctypes.windll.user32.SetProcessDPIAware()
+            self.width = ctypes.windll.user32.GetSystemMetrics(0)
+            self.height = ctypes.windll.user32.GetSystemMetrics(0)
+        else:
+            self.width = 1920
+            self.height = 1080
+        self.screen_width = self.width
+        self.screen_height = self.height
         # Saves current screen
         self.curScreen = 0
         # Desk = 0, Newspaper = 1, Folder = 2,
@@ -19,12 +28,12 @@ class Main():
     def runGame(self):
         """Runs the Game"""
         # Starts the main menu
-        self.main_menu = MainMenu.Main_Menu(self.screen_width,self.screen_height)
+        self.main_menu = MainMenu.Main_Menu(self.screen_width, self.screen_height)
         self.main_menu.runScreen()
         # Init DetectMouse
         self.detect_mouse = DetectMouse.Detect_Mouse()
         # Init Folder Screen
-        self.folder_screen = FolderScreen.Folder()
+        self.folder_screen = FolderScreen.Folder(self.screen_width, self.screen_height)
         # Init Contacts Screen
         self.contact_book = ContactBook.Contact_Book()
         # Init Computer Screen
@@ -64,6 +73,7 @@ class Main():
                             self.curScreen = 0
                 elif self.curScreen == 2:
                     if event.type == pg.MOUSEBUTTONDOWN:
+                        self.folder_screen.clickTab()
                         if self.detect_mouse.MouseCheck(0,122,954,1080) == True:
                             self.main_menu.runScreen()
                             self.curScreen = 0
@@ -77,6 +87,7 @@ class Main():
                         if self.detect_mouse.MouseCheck(0,122,954,1080) == True:
                             self.main_menu.runScreen()
                             self.curScreen = 0
+                
             if key[pg.K_ESCAPE]: #If Escape key is pressed, close window.
                 sys.exit()
 

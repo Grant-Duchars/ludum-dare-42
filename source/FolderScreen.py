@@ -1,10 +1,11 @@
-import pygame as pg, sys, math, time, os, ctypes
+import pygame as pg, sys, math, time, os, ctypes, platform
 from source import DetectMouse
+
 class Folder:
-    def __init__(self, screen_width, screen_height):
-        ctypes.windll.user32.SetProcessDPIAware()
-        self.screen_width = screen_width
-        self.screen_height = screen_height
+
+    def __init__(self, width, height):
+        self.screen_width = width
+        self.screen_height = height
         self.desk = pg.image.load("assets/Desk.png")
         self.desk = pg.transform.scale(self.desk,(7680*math.floor(self.screen_width/1920),4320*math.floor(self.screen_height/1080)))
         self.folderOpen = pg.image.load("assets/File_Folder_Open.png")
@@ -25,6 +26,7 @@ class Folder:
         self.screen_color = (128, 0, 0)
         self.clock = pg.time.Clock()
         self.tabLoc = [0, 0, 0]
+
     def runScreen(self):
         '''Starts the folder screen'''
         self.startscreen = pg.display.set_mode((math.floor(self.screen_width), math.floor(self.screen_height)),pg.NOFRAME)
@@ -36,70 +38,57 @@ class Folder:
         self.startscreen.blit(self.pageThreeR, (955*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
         self.startscreen.blit(self.pageTwoR, (955*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
         self.startscreen.blit(self.pageOneR, (955*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
-        self.startscreen.blit(self.backButton, (0,954))
+        self.startscreen.blit(self.backButton, (0,954*math.floor(self.screen_height/1080)))
 
-#        self.startscreen.blit(self.pageOneL, (255*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
-#        self.startscreen.blit(self.pageTwoL, (255*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
-#        self.startscreen.blit(self.pageThreeL, (255*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
+    def clickTab(self):
+        if self.detect_mouse.MouseCheck(330*math.floor(self.screen_width/1920),365*math.floor(self.screen_width/1920),200*math.floor(self.screen_height/1080),350*math.floor(self.screen_height/1080)) == True and self.tabLoc[0] == 1:
+            self.tabLoc = [0, 0, 0]
+            self.startscreen.blit(self.desk, (0,-2450*math.floor(self.screen_height/1080)))
+            self.startscreen.blit(self.folderOpen, (100*math.floor(self.screen_width/1920),100*math.floor(self.screen_height/1080)))
+            self.startscreen.blit(self.pageThreeR, (955*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
+            self.startscreen.blit(self.pageTwoR, (955*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
+            self.startscreen.blit(self.pageOneR, (955*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
+            self.startscreen.blit(self.backButton, (0,954*math.floor(self.screen_height/1080)))
+        elif self.detect_mouse.MouseCheck(1550*math.floor(self.screen_width/1920),1585*math.floor(self.screen_width/1920),200*math.floor(self.screen_height/1080),350*math.floor(self.screen_height/1080)) == True and self.tabLoc[0] == 0:
+            self.tabLoc = [1, 0, 0]
+            self.startscreen.blit(self.desk, (0,-2450*math.floor(self.screen_height/1080)))
+            self.startscreen.blit(self.folderOpen, (100*math.floor(self.screen_width/1920),100*math.floor(self.screen_height/1080)))
+            self.startscreen.blit(self.pageThreeR, (955*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
+            self.startscreen.blit(self.pageTwoR, (955*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
+            self.startscreen.blit(self.pageOneL, (255*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
+            self.startscreen.blit(self.backButton, (0,954*math.floor(self.screen_height/1080)))
+        #blue tab control
+        elif self.detect_mouse.MouseCheck(330*math.floor(self.screen_width/1920),365*math.floor(self.screen_width/1920),370*math.floor(self.screen_height/1080),520*math.floor(self.screen_height/1080)) == True and self.tabLoc[1] == 1:
+            self.tabLoc = [1, 0, 0]
+            self.startscreen.blit(self.desk, (0,-2450*math.floor(self.screen_height/1080)))
+            self.startscreen.blit(self.folderOpen, (100*math.floor(self.screen_width/1920),100*math.floor(self.screen_height/1080)))
+            self.startscreen.blit(self.pageThreeR, (955*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
+            self.startscreen.blit(self.pageTwoR, (955*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
+            self.startscreen.blit(self.pageOneL, (255*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
+            self.startscreen.blit(self.backButton, (0,954*math.floor(self.screen_height/1080)))
+        elif self.detect_mouse.MouseCheck(1550*math.floor(self.screen_width/1920),1585*math.floor(self.screen_width/1920),370*math.floor(self.screen_height/1080),520*math.floor(self.screen_height/1080)) == True and self.tabLoc[1] == 0:
+            self.tabLoc = [1, 1, 0]
+            self.startscreen.blit(self.desk, (0,-2450*math.floor(self.screen_height/1080)))
+            self.startscreen.blit(self.folderOpen, (100*math.floor(self.screen_width/1920),100*math.floor(self.screen_height/1080)))
+            self.startscreen.blit(self.pageThreeR, (955*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
+            self.startscreen.blit(self.pageOneL, (255*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
+            self.startscreen.blit(self.pageTwoL, (255*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
+            self.startscreen.blit(self.backButton, (0,954*math.floor(self.screen_height/1080)))
+        #green tab control
+        elif self.detect_mouse.MouseCheck(330*math.floor(self.screen_width/1920),365*math.floor(self.screen_width/1920),550*math.floor(self.screen_height/1080),700*math.floor(self.screen_height/1080)) == True and self.tabLoc[2] == 1:
+            self.tabLoc = [1, 1, 0]
+            self.startscreen.blit(self.desk, (0,-2450*math.floor(self.screen_height/1080)))
+            self.startscreen.blit(self.folderOpen, (100*math.floor(self.screen_width/1920),100*math.floor(self.screen_height/1080)))
+            self.startscreen.blit(self.pageThreeR, (955*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
+            self.startscreen.blit(self.pageOneL, (255*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
+            self.startscreen.blit(self.pageTwoL, (255*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
+            self.startscreen.blit(self.backButton, (0,954*math.floor(self.screen_height/1080)))
+        elif self.detect_mouse.MouseCheck(1550*math.floor(self.screen_width/1920),1585*math.floor(self.screen_width/1920),550*math.floor(self.screen_height/1080),700*math.floor(self.screen_height/1080)) == True and self.tabLoc[2] == 0:
+            self.tabLoc = [1, 1, 1]
+            self.startscreen.blit(self.desk, (0,-2450*math.floor(self.screen_height/1080)))
+            self.startscreen.blit(self.folderOpen, (100*math.floor(self.screen_width/1920),100*math.floor(self.screen_height/1080)))
+            self.startscreen.blit(self.pageOneL, (255*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
+            self.startscreen.blit(self.pageTwoL, (255*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
+            self.startscreen.blit(self.pageThreeL, (255*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
+            self.startscreen.blit(self.backButton, (0,954*math.floor(self.screen_height/1080)))
         pg.display.update()
-        while True:
-            self.clock.tick(10)
-            events = pg.event.get()
-            key = pg.key.get_pressed()
-            for event in events: #If X is clicked, don't crash the window.
-                if event.type == pg.QUIT:
-                    sys.exit()
-                if event.type == pg.MOUSEBUTTONDOWN:
-                    #red tab control
-                    if self.detect_mouse.MouseCheck(330*math.floor(self.screen_width/1920),365*math.floor(self.screen_width/1920),200*math.floor(self.screen_height/1080),350*math.floor(self.screen_height/1080)) == True and self.tabLoc[0] == 1:
-                        self.tabLoc = [0, 0, 0]
-                        self.startscreen.blit(self.desk, (0,-2450*math.floor(self.screen_height/1080)))
-                        self.startscreen.blit(self.folderOpen, (100*math.floor(self.screen_width/1920),100*math.floor(self.screen_height/1080)))
-                        self.startscreen.blit(self.pageThreeR, (955*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
-                        self.startscreen.blit(self.pageTwoR, (955*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
-                        self.startscreen.blit(self.pageOneR, (955*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
-                        pg.display.update()
-                    elif self.detect_mouse.MouseCheck(1550*math.floor(self.screen_width/1920),1585*math.floor(self.screen_width/1920),200*math.floor(self.screen_height/1080),350*math.floor(self.screen_height/1080)) == True and self.tabLoc[0] == 0:
-                        self.tabLoc = [1, 0, 0]
-                        self.startscreen.blit(self.desk, (0,-2450*math.floor(self.screen_height/1080)))
-                        self.startscreen.blit(self.folderOpen, (100*math.floor(self.screen_width/1920),100*math.floor(self.screen_height/1080)))
-                        self.startscreen.blit(self.pageThreeR, (955*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
-                        self.startscreen.blit(self.pageTwoR, (955*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
-                        self.startscreen.blit(self.pageOneL, (255*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
-                        pg.display.update()
-                    #blue tab control
-                    elif self.detect_mouse.MouseCheck(330*math.floor(self.screen_width/1920),365*math.floor(self.screen_width/1920),370*math.floor(self.screen_height/1080),520*math.floor(self.screen_height/1080)) == True and self.tabLoc[1] == 1:
-                        self.tabLoc = [1, 0, 0]
-                        self.startscreen.blit(self.desk, (0,-2450*math.floor(self.screen_height/1080)))
-                        self.startscreen.blit(self.folderOpen, (100*math.floor(self.screen_width/1920),100*math.floor(self.screen_height/1080)))
-                        self.startscreen.blit(self.pageThreeR, (955*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
-                        self.startscreen.blit(self.pageTwoR, (955*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
-                        self.startscreen.blit(self.pageOneL, (255*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
-                        pg.display.update()
-                    elif self.detect_mouse.MouseCheck(1550*math.floor(self.screen_width/1920),1585*math.floor(self.screen_width/1920),370*math.floor(self.screen_height/1080),520*math.floor(self.screen_height/1080)) == True and self.tabLoc[1] == 0:
-                        self.tabLoc = [1, 1, 0]
-                        self.startscreen.blit(self.desk, (0,-2450*math.floor(self.screen_height/1080)))
-                        self.startscreen.blit(self.folderOpen, (100*math.floor(self.screen_width/1920),100*math.floor(self.screen_height/1080)))
-                        self.startscreen.blit(self.pageThreeR, (955*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
-                        self.startscreen.blit(self.pageOneL, (255*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
-                        self.startscreen.blit(self.pageTwoL, (255*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
-                        pg.display.update()
-                    #green tab control
-                    elif self.detect_mouse.MouseCheck(330*math.floor(self.screen_width/1920),365*math.floor(self.screen_width/1920),550*math.floor(self.screen_height/1080),700*math.floor(self.screen_height/1080)) == True and self.tabLoc[2] == 1:
-                        self.tabLoc = [1, 1, 0]
-                        self.startscreen.blit(self.desk, (0,-2450*math.floor(self.screen_height/1080)))
-                        self.startscreen.blit(self.folderOpen, (100*math.floor(self.screen_width/1920),100*math.floor(self.screen_height/1080)))
-                        self.startscreen.blit(self.pageThreeR, (955*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
-                        self.startscreen.blit(self.pageOneL, (255*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
-                        self.startscreen.blit(self.pageTwoL, (255*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
-                        pg.display.update()
-                    elif self.detect_mouse.MouseCheck(1550*math.floor(self.screen_width/1920),1585*math.floor(self.screen_width/1920),550*math.floor(self.screen_height/1080),700*math.floor(self.screen_height/1080)) == True and self.tabLoc[2] == 0:
-                        self.tabLoc = [1, 1, 1]
-                        self.startscreen.blit(self.desk, (0,-2450*math.floor(self.screen_height/1080)))
-                        self.startscreen.blit(self.folderOpen, (100*math.floor(self.screen_width/1920),100*math.floor(self.screen_height/1080)))
-                        self.startscreen.blit(self.pageOneL, (255*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
-                        self.startscreen.blit(self.pageTwoL, (255*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
-                        self.startscreen.blit(self.pageThreeL, (255*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
-                        pg.display.update()
-            if key[pg.K_ESCAPE]: #If Escape key is pressed, close window.
-                sys.exit()
