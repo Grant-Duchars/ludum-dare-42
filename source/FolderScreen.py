@@ -1,9 +1,13 @@
-import pygame as pg, sys, math, time, os, ctypes
+import pygame as pg, sys, math, time, os, ctypes, platform
 class Folder:
     def __init__(self):
-        ctypes.windll.user32.SetProcessDPIAware()
-        self.width = ctypes.windll.user32.GetSystemMetrics(0)
-        self.height = ctypes.windll.user32.GetSystemMetrics(0)
+        if (platform.system() == "Windows") == True:
+            ctypes.windll.user32.SetProcessDPIAware()
+            self.width = ctypes.windll.user32.GetSystemMetrics(0)
+            self.height = ctypes.windll.user32.GetSystemMetrics(0)
+        else:
+            self.width = 1920
+            self.height = 1080
         self.background = pg.image.load("assets/background.png")
         self.folderOpen = pg.image.load("assets/FileFolderOpen.png")
         self.folderOpen = pg.transform.scale(self.folderOpen,(1720,880))

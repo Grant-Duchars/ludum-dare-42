@@ -1,4 +1,4 @@
-import pygame as pg, sys, math, time, os
+import pygame as pg, sys, math, time, os, ctypes, platform
 from source import MainMenu, DetectMouse, FolderScreen
 
 class Main():
@@ -6,6 +6,11 @@ class Main():
     def __init__(self):
         # Game Clock
         self.clock = pg.time.Clock()
+
+        if platform.system() == "Windows":
+            self.os_is_windows = True
+        else:
+            self.os_is_windows = False
 
     def runGame(self):
         """Runs the Game"""
