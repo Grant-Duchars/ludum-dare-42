@@ -1,4 +1,4 @@
-import pygame as pg, sys, math, time, os, ctypes
+import pygame as pg, sys, math, time, os
 from source import MainMenu, DetectMouse, FolderScreen
 
 class Main():
@@ -6,17 +6,14 @@ class Main():
     def __init__(self):
         # Game Clock
         self.clock = pg.time.Clock()
-#        self.sw=ctypes.windll.user32.GetSystemMetrics(0)
-#        self.sh=ctypes.windll.user32.GetSystemMetrics(1)
-#        if self.sw/self.sh > (16/9):
-#            self.screen_height=math.floor(self.sh)
-#            self.screen_width=math.floor(self.sh*(16/9))
-#        else:
-#            self.screen_width=math.floor(self.sw)
-#            self.screen_height=math.floor(self.sw*(9/16))
-#        print(ctypes.windll.user32.GetSystemMetrics(0))
-        self.screen_width=3840
-        self.screen_height=2160
+        self.sw=pg.display.Info().current_w
+        self.sh=pg.display.Info().current_h
+        if self.sw/self.sh > (16/9):
+            self.screen_height=math.floor(self.sh)
+            self.screen_width=math.floor(self.sh*(16/9))
+        else:
+            self.screen_width=math.floor(self.sw)
+            self.screen_height=math.floor(self.sw*(9/16))
 
     def runGame(self):
         """Runs the Game"""

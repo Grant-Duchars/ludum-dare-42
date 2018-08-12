@@ -1,10 +1,9 @@
-import pygame as pg, sys, time, math, os, ctypes
+import pygame as pg, sys, time, math, os
 
 class Main_Menu:
 
     def __init__(self, screen_width, screen_height):
         # Screen Settings
-        ctypes.windll.user32.SetProcessDPIAware()
         self.screen_width = screen_width
         self.screen_height = screen_height
         self.winX = 0

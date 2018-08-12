@@ -1,9 +1,9 @@
 import pygame as pg, sys, math, time, os, ctypes
 class Folder:
     def __init__(self, screen_width, screen_height):
+        ctypes.windll.user32.SetProcessDPIAware()
         self.screen_width = screen_width
         self.screen_height = screen_height
-        ctypes.windll.user32.SetProcessDPIAware()
         self.background = pg.image.load("assets/background.png")
         self.background = pg.transform.scale(self.background,(1920*math.floor(self.screen_width/1920),1080*math.floor(self.screen_height/1080)))
         self.folderOpen = pg.image.load("assets/FileFolderOpen.png")
