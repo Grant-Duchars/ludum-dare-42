@@ -1,5 +1,4 @@
-import pygame
-import time
+import pygame, time
 from IansClasses import *
 from PhoneCall import *
 #from MouseCheck import MouseCheck

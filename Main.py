@@ -1,6 +1,6 @@
 import pygame as pg, sys, math, time, os, ctypes, platform
 from random import randint
-from source import MainMenu, DetectMouse, FolderScreen, ContactBook, ComputerScreen, NewspaperScreen, District, Turns
+from source import MainMenu, DetectMouse, FolderScreen, ContactBook, ComputerScreen, NewspaperScreen, District, Turns, PhoneScreen
 
 class Main():
 
@@ -53,12 +53,13 @@ class Main():
         # Init Folder Screen
         self.folder_screen = FolderScreen.Folder(self.screen_width, self.screen_height)
         # Init Contacts Screen
-        self.contact_book = ContactBook.Contact_Book()
+        self.contact_book = ContactBook.Contact_Book(self.screen_width, self.screen_height)
         # Init Computer Screen
-        self.computer_screen = ComputerScreen.Computer_Screen()
+        self.computer_screen = ComputerScreen.Computer_Screen(self.screen_width, self.screen_height)
         # Init Newspaper Screen
-        self.newspaper_screen = NewspaperScreen.Newspaper_Screen()
-
+        self.newspaper_screen = NewspaperScreen.Newspaper_Screen(self.screen_width, self.screen_height)
+        # Init Phone Screen
+        self.phone_screen = PhoneScreen.Phone_Screen(self.screen_width, self.screen_height)
         # Main Game Loop
         while True:
             self.clock.tick(10)
@@ -80,6 +81,7 @@ class Main():
                             self.computer_screen.runScreen()
                             self.curScreen = 3
                         elif self.detect_mouse.MouseCheck(1464*math.floor(self.screen_width/1920),1692*math.floor(self.screen_width/1920),335*math.floor(self.screen_height/1080),513*math.floor(self.screen_height/1080)) == True:
+                            self.phone_screen.runScreen()
                             self.curScreen = 4
                         elif self.detect_mouse.MouseCheck(1382*math.floor(self.screen_width/1920),1552*math.floor(self.screen_width/1920),570*math.floor(self.screen_height/1080),813*math.floor(self.screen_height/1080)) == True:
                             self.contact_book.runScreen()
@@ -97,6 +99,12 @@ class Main():
                             self.curScreen = 0
                 elif self.curScreen == 3:
                     if event.type == pg.MOUSEBUTTONDOWN:
+                        if self.detect_mouse.MouseCheck(0,122*math.floor(self.screen_width/1920),954*math.floor(self.screen_height/1080),1080*math.floor(self.screen_height/1080)) == True:
+                            self.main_menu.runScreen()
+                            self.curScreen = 0
+                elif self.curScreen == 4:
+                    if event.type == pg.MOUSEBUTTONDOWN:
+                        self.phone_screen.clickButton()
                         if self.detect_mouse.MouseCheck(0,122*math.floor(self.screen_width/1920),954*math.floor(self.screen_height/1080),1080*math.floor(self.screen_height/1080)) == True:
                             self.main_menu.runScreen()
                             self.curScreen = 0
