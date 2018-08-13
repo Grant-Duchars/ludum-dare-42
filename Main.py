@@ -1,6 +1,6 @@
 import pygame as pg, sys, math, time, os, ctypes, platform
 from random import randint
-from source import MainMenu, DetectMouse, FolderScreen, ContactBook, ComputerScreen, NewspaperScreen, District, Turns, PhoneScreen
+from source import MainMenu, DetectMouse, FolderScreen, ContactBook, ComputerScreen, NewspaperScreen, District, Turns, PhoneScreen, PhoneCall
 
 class Main():
 
@@ -28,6 +28,7 @@ class Main():
         self.startPop = 0
         self.popGoal = 0
         self.phoneActive = False
+        self.callActive = False
 
     def runGame(self):
         """Runs the Game"""
@@ -55,7 +56,7 @@ class Main():
         # Init Turns
         self.turnManager = Turns.Turns(21, self.startPop, self.popGoal)
         # Init Folder Screen
-        self.folder_screen = FolderScreen.Folder(self.screen_width, self.screen_height)
+        self.folder_screen = FolderScreen.Folder(self.screen_width, self.screen_height, self.startPop, self.popGoal)
         # Init Contacts Screen
         self.contact_book = ContactBook.Contact_Book(self.screen_width, self.screen_height)
         # Init Computer Screen
@@ -115,11 +116,24 @@ class Main():
                             self.phone_screen.clickButton()
                             if self.phone_screen.checkNum() == True:
                                 self.phoneActive = True
-                        elif self.phoneActive == True:
-                            self.main_menu.runScreen()
                         if self.detect_mouse.MouseCheck(0,122*math.floor(self.screen_width/1920),954*math.floor(self.screen_height/1080),1080*math.floor(self.screen_height/1080)) == True:
                             self.main_menu.runScreen()
                             self.curScreen = 0
+                    if self.phoneActive == True and self.callActive == False:
+                        self.phone_screen.phoneCallInit()
+                        self.phone_screen.ChangeScreen()
+                        self.callActive = True
+                    elif self.phoneActive == True and self.callActive == True:
+                        if event.type == pg.MOUSEBUTTONDOWN:
+                            if self.phone_screen.CallTracking() == 1:
+                                self.phone_screen.ChangeScreen(1)
+                            elif self.phone_screen.CallTracking() == 2:
+                                self.phone_screen.ChangeScreen(2)
+                            elif self.phone_screen.CallTracking() == 3:
+                                self.phone_screen.ChangeScreen(3)
+                            elif self.phone_screen.CallTracking() == -1:
+                                self.phone_screen.ChangeScreen(-1)
+                    
                 elif self.curScreen == 5:
                     if event.type == pg.MOUSEBUTTONDOWN:
                         if self.detect_mouse.MouseCheck(0,122*math.floor(self.screen_width/1920),954*math.floor(self.screen_height/1080),1080*math.floor(self.screen_height/1080)) == True:

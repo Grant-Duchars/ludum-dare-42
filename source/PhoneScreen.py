@@ -1,5 +1,5 @@
 import pygame as pg, sys, math, time, os, ctypes, platform
-from source import DetectMouse
+from source import DetectMouse, CreatePhoneText
 
 class Phone_Screen:
 
@@ -116,3 +116,124 @@ class Phone_Screen:
             return True
         else:
             return False
+
+    def phoneCallInit(self):
+        print("Phone Call Started")
+        self.callscreen = None
+        if self.currentCall == "army":
+            self.index = 0
+        elif self.currentCall == "mob":
+            self.index = 1
+        elif self.currentCall == "police":
+            self.index = 2
+        elif self.currentCall == "looters":
+            self.index = 3
+        elif self.currentCall == "power":
+            self.index = 4
+        elif self.currentCall == "landlord":
+            self.index = 5
+        self.choice = None
+
+    def PhoneScript(self):
+        self.opener = open("assets/Phone Scripts.txt", "r")
+        self.temp = self.opener.read()
+        self.temp2 = self.temp.split("*")
+        self.phone_scripts = [[],[],[],[],[],[],[]]
+        self.phone_scripts[0].append("Army")
+        self.phone_scripts[1].append("Mob")
+        self.phone_scripts[2].append("Police")
+        self.phone_scripts[3].append("Looters")
+        self.phone_scripts[4].append("Power")
+        self.phone_scripts[5].append("Landlord")
+        self.phone_scripts[6].extend(("Region 1", "Region 2",
+        "Region 3", "Region 4", "Region 5", "Region 6"))
+        for i in range(len(self.temp2)):
+            self.temp = self.temp2[i].split("\"")
+            for x in range(len(self.temp)):
+                if x % 2 != 0:
+                    self.phone_scripts[i].append(self.temp[x])
+        return self.phone_scripts
+
+    def OnPhone(self):
+        return self.index
+
+    def ChangeScreen(self, var=0):
+        self.callscreen = var
+        self.ps = self.PhoneScript()
+        if self.callscreen == 0:
+            self.drawer = CreatePhoneText.CreateText(self.screen_width, self.screen_height, 137, 838)
+            self.drawer.AddText(self.ps[self.index][0],823, -50)
+            self.drawer.AddText(self.ps[self.index][1])
+            self.drawer.AddText("Yes.", 1250)
+            self.drawer.AddText("No.", 1250, 64)
+            self.drawer.ShowDisplayText()
+            pg.display.update()
+        elif self.callscreen == 1:
+            self.drawer1 = CreatePhoneText.CreateText(self.screen_width, self.screen_height, 137, 838)
+            self.drawer1.AddText(self.ps[self.index][0],823, -50)
+            self.drawer1.AddText(self.ps[self.index][2])
+            self.drawer1.AddText("Continue...", 1500, 64)
+            self.drawer1.SetColor(0, 0, 0)
+            self.drawer1.ShowDisplayText()
+            pg.display.flip()
+        elif self.callscreen == 2:
+            self.drawer2 = CreatePhoneText.CreateText(self.screen_width, self.screen_height,137, 838)
+            self.drawer2.ClearDisplayText()
+            self.drawer2.AddText(self.ps[self.index][0],823, -50)
+            self.drawer2.AddText(self.ps[self.index][4])
+            self.drawer2.DrawRegionSelect(self)
+            self.drawer2.ShowDisplayText()
+            pg.display.flip()
+        elif self.callscreen == 3:
+            self.drawer3 = CreatePhoneText.CreateText(self.screen_width, self.screen_height, 137, 838)
+            self.drawer3.ClearDisplayText()
+            self.drawer3.AddText(self.ps[self.index][0],823, -50)
+            self.drawer3.AddText(self.ps[self.index][3])
+            self.drawer3.AddText("Continue...", 1500, 64)
+            self.drawer3.ShowDisplayText()
+            pg.display.flip()
+            self.choice = "Cancel"
+        elif self.callscreen == -1:
+            self.drawer4 = CreatePhoneText.CreateText(self.screen_width, self.screen_height, 137, 838)
+            self.drawer4.ClearDisplayText()
+            self.finalstring = (self.ps[self.index][5]
+            + " " + self.choice + "... " + self.ps[self.index][6])
+            self.drawer4.AddText("Continue...", 1500, 64)
+            self.drawer4.AddText(self.finalstring)
+            self.drawer4.ShowDisplayText()
+            pg.display.flip()
+
+    def CallTracking(self):
+        if self.callscreen == 0:
+            if self.detect_mouse.MouseCheck(1387, 1500, 838, 870) == True:
+                return 1
+            elif self.detect_mouse.MouseCheck(1387, 1400, 902, 934) == True:
+                return 3
+        elif self.callscreen == 1:
+            if self.detect_mouse.MouseCheck(1637, 1762, 902, 934) == True:
+                return 2
+        elif self.callscreen == 2:
+            if self.detect_mouse.MouseCheck(1137, 1262, 838, 870) == True:
+                self.choice = "Region 1"
+                return -1
+            elif self.detect_mouse.MouseCheck(1387, 1512, 838, 870) == True:
+                self.choice = "Region 2"
+                return -1
+            elif self.detect_mouse.MouseCheck(1637, 1762, 838, 870) == True:
+                self.choice = "Region 3"
+                return -1
+            elif self.detect_mouse.MouseCheck(1137, 1262, 902, 934) == True:
+                self.choice = "Region 4"
+                return -1
+            elif self.detect_mouse.MouseCheck(1387, 1412, 902, 934) == True:
+                self.choice = "Region 5"
+                return -1
+            elif self.detect_mouse.MouseCheck(1637, 1762, 902, 934) == True:
+                self.choice = "Region 6"
+                return -1
+        elif self.callscreen == 3:
+            if self.detect_mouse.MouseCheck(1637, 1762, 902, 934) == True:
+                return None
+        elif self.callscreen == -1:
+            if self.detect_mouse.MouseCheck(1637, 1762, 902, 934) == True:
+                return None
