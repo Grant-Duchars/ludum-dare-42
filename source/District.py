@@ -11,8 +11,8 @@ class Create_District:
 
     def updateStats(self, newRep=0, newCurPop=0):
         '''Updates the district's Reputation and Current Population'''
-        self.rep = self.rep + newRep
-        self.curPop = self.curPop + newCurPop
+        self.rep = self.rep - newRep
+        self.curPop = self.curPop - newCurPop
 
 
     def getName(self):
@@ -47,6 +47,7 @@ class Create_District:
     def getPop(self):
         '''Returns the current population of the district'''
         return self.curPop
+
     def getMaxPop(self):
         return self.popMax
 
