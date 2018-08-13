@@ -3,7 +3,7 @@ import pygame as pg, sys, math, time, os, ctypes, platform
 
 class Computer_Screen:
 
-    def __init__(self, width, height, drawer, pops, reps, max_pops, types, total_pop, total_rep, gov_rep):
+    def __init__(self, width, height, drawer, pops, reps, max_pops, types, total_pop, total_rep, gov_rep, map_updater):
         self.screen_width = width
         self.screen_height = height
         self.background = pg.image.load("assets/computer_zoomed.png")
@@ -17,10 +17,11 @@ class Computer_Screen:
         self.total_pop = total_pop
         self.total_rep = total_rep
         self.gov_rep = gov_rep
+        self.map_updater = map_updater
         print(total_pop)
+        self.district = 0
 
-#    def MapUpdate(self, district):
-#        self.drawer.AddText(self.pops[district])
+
 
     def runScreen(self):
         '''Starts the computer screen'''
@@ -28,12 +29,12 @@ class Computer_Screen:
         self.startscreen.fill(self.screen_color)
         self.startscreen.blit(self.background, (0,0))
         self.startscreen.blit(self.backButton, (0,954))
-        print((self.pops[0]))
-        self.drawer.AddText(str(self.reps[0]), 1514, 910)
-        self.drawer.AddText(str(self.types[0]), 1305, 910)
-        self.drawer.AddText(str(self.pops[0]), 928, 910)
+        self.drawer.ClearDisplayText()
         self.drawer.AddText(str(self.total_pop), 85, 820)
         self.drawer.AddText(str(self.total_rep), 85, 520)
         self.drawer.AddText(str(self.gov_rep), 85, 220)
+        self.drawer.AddText(str(self.reps[self.district]), 1514, 910)
+        self.drawer.AddText(str(self.types[self.district]), 1305, 910)
+        self.drawer.AddText(str(self.pops[self.district]), 928, 910)
         self.drawer.ShowDisplayText()
-        pg.display.update()
+        pg.display.flip()

@@ -29,6 +29,10 @@ class Folder:
         self.pageFour = pg.transform.scale(self.pageFour,(700*math.floor(self.screen_width/1920),800*math.floor(self.screen_height/1080)))
         self.backButton = pg.image.load("assets/back_button.png")
         self.backButton = pg.transform.scale(self.backButton,(124*math.floor(self.screen_width/1920),125*math.floor(self.screen_height/1080)))
+        self.xMk = pg.image.load("assets/x.png")
+        self.xMk = pg.transform.scale(self.xMk,(40*math.floor(self.screen_width/1920),40*math.floor(self.screen_height/1080)))
+        self.chkMk = pg.image.load("assets/check.png")
+        self.chkMk = pg.transform.scale(self.chkMk,(40*math.floor(self.screen_width/1920),40*math.floor(self.screen_height/1080)))
         self.screen_color = (128, 0, 0)
         self.clock = pg.time.Clock()
         self.tabLoc = [0, 0, 0]
@@ -38,10 +42,12 @@ class Folder:
 
 
         #district Names
-        self.dNames = ["D1","D2","D3","D4","D5","D6","D7","D8"]
+        self.dNames = ["Shade","Zen","Venom","Glove","Hacks","Data","Mercury","Circuit"]
         #max and min % for Goals
         self.urgeGoalMin = .75
         self.urgeGoalMax = .85
+        self.sideGoalMin = .45
+        self.sideGoalMax = .55
         #mission counters
         self.misCntMain = 1
         self.misCntUrge = 0
@@ -50,11 +56,13 @@ class Folder:
         #mission lists
         self.mainGoal = "Lower Nirvana's population from "+str(self.curPop)+" to "+str(self.popGoal)+"."
         self.urgeGoal = []
-
-
         self.urgeGoalPop = []
         self.urgeGoalDis = []
         self.urgeGoalTime = []
+        self.sideGoal = []
+        self.sideGoalPop = []
+        self.sideGoalDis = []
+        self.sideGoalTime = []
 
         #initiating fonts
         pg.font.init()
@@ -62,13 +70,17 @@ class Folder:
         self.subFont = pg.font.SysFont('Times New Roman', 30*math.floor(self.screen_width/1920))
         self.parFont = pg.font.SysFont('Times New Roman', 20*math.floor(self.screen_width/1920))
 
-    def missionUpdate(self, curPop, d1Pop, d2Pop, d3Pop, d4Pop, d5Pop, d6Pop, d7Pop, d8Pop):
+    def missionUpdate(self, curPop, d1Pop, d2Pop, d3Pop, d4Pop, d5Pop, d6Pop, d7Pop, d8Pop, ):
         self.curPop = curPop
         self.dPopList = [d1Pop, d2Pop, d3Pop, d4Pop, d5Pop, d6Pop, d7Pop, d8Pop]
         for i in range(0,math.floor(len(self.urgeGoal))):
             if self.urgeGoalDis[i] <= self.urgeGoalPop[i]:
                 self.urgeGoalTime[i] = 0
                 self.misCntUrge=self.misCntUrge-1
+
+            if self.sideGoalDis[i] <= self.sideGoalPop[i]:
+                self.sideGoalTime[i] = 0
+                self.misCntSide=self.misCntSide-1
 
         self.misCntTot = self.misCntMain + self.misCntUrge + self.misCntSide
 
@@ -79,7 +91,13 @@ class Folder:
             if self.urgeGoalTime[i] != 0 and self.urgeGoalTime[i] != -1:
                 self.urgeGoalTime[i] = self.urgeGoalTime[i]-1
                 if self.urgeGoalTime[i] == 0:
+                    self.mainImp.repDown()
                     self.urgeGoalTime[i] = -1
+            if self.sideGoalTime[i] != 0 and self.sideGoalTime[i] != -1:
+                self.sideGoalTime[i] = self.sideGoalTime[i]-1
+                if self.sideGoalTime[i] == 0:
+                    self.mainImp.repDown()
+                    self.sideGoalTime[i] = -1
         self.distSelect = randint(0,7)
         self.urgeGoalDis.append(self.dPopList[self.distSelect])
         self.urgeGoalPop.append(randint(math.floor(self.urgeGoalMin*self.dPopList[self.distSelect]),math.floor(self.urgeGoalMax*self.dPopList[self.distSelect])))
@@ -87,15 +105,31 @@ class Folder:
         self.urgeGoal.append("Lower the population of "+str(self.dNames[self.distSelect])+ " to "+ str(self.urgeGoalPop[len(self.urgeGoalPop)-1])+" within "+ str(self.urgeGoalTime[len(self.urgeGoalTime)-1])+" day.")
         self.misCntUrge = self.misCntUrge+1
 
+
+        #sidemissions
+        self.distSelect = randint(0,7)
+        self.sideGoalDis.append(self.dPopList[self.distSelect])
+        self.sideGoalPop.append(randint(math.floor(self.sideGoalMin*self.dPopList[self.distSelect]),math.floor(self.sideGoalMax*self.dPopList[self.distSelect])))
+        self.sideGoalTime.append(3)
+        self.sideGoal.append("Lower the population of "+str(self.dNames[self.distSelect])+ " to "+ str(self.sideGoalPop[len(self.sideGoalPop)-1])+" within "+ str(self.sideGoalTime[len(self.sideGoalTime)-1])+" day.")
+        self.misCntSide = self.misCntSide+1
+
         self.misCntTot = self.misCntMain + self.misCntUrge + self.misCntSide
 
     def urgeBlit(self):
         for i in range(0,math.floor(len(self.urgeGoal))):
-            print(i)
-            self.urgeMis = self.parFont.render(self.urgeGoal[i], False, (0, 0, 0))
+            self.urgeMis = self.parFont.render(self.urgeGoal[i], True, (0, 0, 0))
             self.startscreen.blit(self.urgeMis,(400*math.floor(self.screen_width/1920),(300+40*i)*math.floor(self.screen_height/1080)))
+            if self.urgeGoalTime[i] == 0:
+                self.startscreen.blit(self.chkMk,(1120*math.floor(self.screen_width/1920),(300+40*i)*math.floor(self.screen_height/1080)))
+            if self.urgeGoalTime[i] == -1:
+                self.startscreen.blit(self.xMk,(1120*math.floor(self.screen_width/1920),(300+40*i)*math.floor(self.screen_height/1080)))
+    def sideBlit(self):
+        for i in range(0,math.floor(len(self.sideGoal))):
+            self.sideMis = self.parFont.render(self.sideGoal[i], True, (0, 0, 0))
+            self.startscreen.blit(self.sideMis,(400*math.floor(self.screen_width/1920),(300+40*i)*math.floor(self.screen_height/1080)))
     def mainBlit(self):
-        self.mainText = self.parFont.render(self.mainGoal, False, (0, 0, 0))
+        self.mainText = self.parFont.render(self.mainGoal, True, (0, 0, 0))
         self.startscreen.blit(self.mainText,(400*math.floor(self.screen_width/1920),300*math.floor(self.screen_height/1080)))
 
     def runScreen(self):
@@ -111,9 +145,9 @@ class Folder:
         self.startscreen.blit(self.pageOneR, (955*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
         self.startscreen.blit(self.backButton, (0,954*math.floor(self.screen_height/1080)))
         #text
-        self.pageOneTitle = self.titleFont.render('MISSION FOLDER', False, (0, 0, 0))
-        self.pageOneSub = self.subFont.render('Please Complete Your '+str(self.misCntTot)+' Missions in the', False, (0, 0, 0))
-        self.pageOneSubB = self.subFont.render('Allotted Time', False, (0, 0, 0))
+        self.pageOneTitle = self.titleFont.render('MISSION FOLDER', True, (0, 0, 0))
+        self.pageOneSub = self.subFont.render('Please Complete Your '+str(self.misCntTot)+' Missions in the', True, (0, 0, 0))
+        self.pageOneSubB = self.subFont.render('Allotted Time', True, (0, 0, 0))
         self.startscreen.blit(self.pageOneTitle,(1080*math.floor(self.screen_width/1920),300*math.floor(self.screen_height/1080)))
         self.startscreen.blit(self.pageOneSub,(1000*math.floor(self.screen_width/1920),450*math.floor(self.screen_height/1080)))
         self.startscreen.blit(self.pageOneSubB,(1150*math.floor(self.screen_width/1920),500*math.floor(self.screen_height/1080)))
@@ -178,4 +212,5 @@ class Folder:
             self.startscreen.blit(self.pageThreeL, (255*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
             self.startscreen.blit(self.pageFour, (955*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
             self.startscreen.blit(self.backButton, (0,954*math.floor(self.screen_height/1080)))
+            self.sideBlit()
         pg.display.update()

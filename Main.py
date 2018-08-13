@@ -32,6 +32,25 @@ class Main():
         self.regionChoice = None
         self.lastContact = None
 
+    def doAction(self, contact, region):
+        if self.lastContact == contact:
+            if region == "Region 1":
+                self.district1.updateStats(randint(5,10),randint(20000,50000))
+            elif region == "Region 2":
+                self.district2.updateStats(randint(5,10),randint(20000,50000))
+            elif region == "Region 3":
+                self.district3.updateStats(randint(5,10),randint(20000,50000))
+            elif region == "Region 4":
+                self.district4.updateStats(randint(5,10),randint(20000,50000))
+            elif region == "Region 5":
+                self.district5.updateStats(randint(5,10),randint(20000,50000))
+            elif region == "Region 6":
+                self.district6.updateStats(randint(5,10),randint(20000,50000))
+
+    def updateTotalPop(self):
+        self.total_pop = 0
+        self.total_pop = self.district1.getPop() + self.district2.getPop() + self.district3.getPop() + self.district4.getPop() + self.district5.getPop() + self.district6.getPop() + self.district7.getPop() + self.district8.getPop()
+
     def runGame(self):
         """Runs the Game"""
         # Starts the main menu
@@ -48,13 +67,13 @@ class Main():
         self.district6 = District.Create_District("Data", randint(-20,20), randint(0,2), randint(800000,1000000),  1200000)
         self.district7 = District.Create_District("Mercury", randint(-20,20), randint(0,2), randint(500000,700000),   900000)
         self.district8 = District.Create_District("Circuit", randint(-20,20), randint(0,2), randint(500000,700000),   750000)
-        self.government = self.district8 = District.Create_District("Government", 15)
+        self.government = self.district9 = District.Create_District("Government", 15)
 
-        self.district_pops = [self.district1.getPop(), self.district2.getPop(),
+        self.district_pops = ["Click on a district to view", self.district1.getPop(), self.district2.getPop(),
         self.district3.getPop(), self.district4.getPop(), self.district5.getPop(),
         self.district6.getPop(), self.district7.getPop(), self.district8.getPop()]
 
-        self.district_reps = [self.district1.getRep(), self.district2.getRep(),
+        self.district_reps = ["", self.district1.getRep(), self.district2.getRep(),
         self.district3.getRep(), self.district4.getRep(), self.district5.getRep(),
         self.district6.getRep(), self.district7.getRep(), self.district8.getRep()]
 
@@ -66,19 +85,21 @@ class Main():
         self.district3.getMaxPop(), self.district4.getMaxPop(), self.district5.getMaxPop(),
         self.district6.getMaxPop(), self.district7.getMaxPop(), self.district8.getMaxPop()]
 
-        self.district_types = [self.district1.getType(), self.district2.getType(),
+        self.district_types = ["", self.district1.getType(), self.district2.getType(),
         self.district3.getType(), self.district4.getType(), self.district5.getType(),
         self.district6.getType(), self.district7.getType(), self.district8.getType()]
+        self.map_updater = None
 
-        self.total_pop = 0
+
+
         self.total_rep = 0
         self.gov_rep = self.government.getRep()
 
-
-        for x in range(len(self.district_pops)):
+        self.total_pop = 0
+        for x in range(1, len(self.district_pops)):
             self.total_pop += self.district_pops[x]
 
-        for x in range(len(self.district_exact_reps)):
+        for x in range(1, len(self.district_exact_reps)):
             self.total_rep += self.district_exact_reps[x]
             self.total_rep /= len(self.district_exact_reps)
 
@@ -118,7 +139,8 @@ class Main():
         self.screen_height, self.drawer,
         self.district_pops, self.district_reps,
         self.district_max_pops, self.district_types,
-        self.total_pop, self.total_rep, self.gov_rep
+        self.total_pop, self.total_rep, self.gov_rep,
+        self.map_updater
         )
         # Init Newspaper Screen
         self.newspaper_screen = NewspaperScreen.Newspaper_Screen(self.screen_width, self.screen_height)
@@ -166,6 +188,30 @@ class Main():
                             self.curScreen = 0
                 elif self.curScreen == 3: # COMPUTER
                     if event.type == pg.MOUSEBUTTONDOWN:
+                        if self.detect_mouse.MouseCheck(1197,1306,182,175) == True:
+                            self.computer_screen.district = 1
+                            self.computer_screen.runScreen()
+                        if self.detect_mouse.MouseCheck(1029,1176,230,315) == True:
+                            self.computer_screen.district = 2
+                            self.computer_screen.runScreen()
+                        if self.detect_mouse.MouseCheck(1032,1276,344,450) == True:
+                            self.computer_screen.district = 3
+                            self.computer_screen.runScreen()
+                        if self.detect_mouse.MouseCheck(1525,1765,378,471) == True:
+                            self.computer_screen.district = 4
+                            self.computer_screen.runScreen()
+                        if self.detect_mouse.MouseCheck(1430,1668,171,278) == True:
+                            self.computer_screen.district = 5
+                            self.computer_screen.runScreen()
+                        if self.detect_mouse.MouseCheck(1451,1630,653,734) == True:
+                            self.computer_screen.district = 6
+                            self.computer_screen.runScreen()
+                        if self.detect_mouse.MouseCheck(1250,1509,456,581) == True:
+                            self.computer_screen.district = 7
+                            self.computer_screen.runScreen()
+                        if self.detect_mouse.MouseCheck(1157,1301,638,735) == True:
+                            self.computer_screen.district = 8
+                            self.computer_screen.runScreen()
 
                         if self.detect_mouse.MouseCheck(0,122*math.floor(self.screen_width/1920),954*math.floor(self.screen_height/1080),1080*math.floor(self.screen_height/1080)) == True:
                             self.main_menu.runScreen()
@@ -200,45 +246,17 @@ class Main():
                                 self.phone_screen.lastNum = ""
                                 self.phone_screen.callNum = ""
                                 self.phone_screen.currentCall = ""
-                                print ("-------------")
-                                print (self.regionChoice)
-                                print (self.lastContact)
-                                print ("-------------")
                                 if self.turnManager.spendAction(1) == 1:
                                     print ("Used one action")
-                                    print (self.district1.getPop())
-                                    if self.lastContact == "army":
-                                        if self.regionChoice == "Region 1":
-                                            self.district1.updateStats(0,randint(20000,50000))
-                                        elif self.regionChoice == "Region 2":
-                                            self.district2.updateStats(0,randint(20000,50000))
-                                        elif self.regionChoice == "Region 3":
-                                            self.district3.updateStats(0,randint(20000,50000))
-                                        elif self.regionChoice == "Region 4":
-                                            self.district4.updateStats(0,randint(20000,50000))
-                                        elif self.regionChoice == "Region 5":
-                                            self.district5.updateStats(0,randint(20000,50000))
-                                        elif self.regionChoice == "Region 6":
-                                            self.district6.updateStats(0,randint(20000,50000))
-                                    print (self.district1.getPop())
+                                    self.doAction(self.lastContact,self.regionChoice)
+                                    self.updateTotalPop()
+                                    self.folder_screen.missionUpdate(self.total_pop, self.district1.getPop(), self.district2.getPop(), self.district3.getPop(), self.district4.getPop(), self.district5.getPop(), self.district6.getPop(), self.district7.getPop(), self.district8.getPop())
                                 elif self.turnManager.spendAction(1) == 2:
                                     print ("Used an action and ended turn")
-                                    if self.lastContact == "army":
-                                        if self.regionChoice == "Region 1":
-                                            self.district1.updateStats(0,randint(20000,50000))
-                                        elif self.regionChoice == "Region 2":
-                                            self.district2.updateStats(0,randint(20000,50000))
-                                        elif self.regionChoice == "Region 3":
-                                            self.district3.updateStats(0,randint(20000,50000))
-                                        elif self.regionChoice == "Region 4":
-                                            self.district4.updateStats(0,randint(20000,50000))
-                                        elif self.regionChoice == "Region 5":
-                                            self.district5.updateStats(0,randint(20000,50000))
-                                        elif self.regionChoice == "Region 6":
-                                            self.district6.updateStats(0,randint(20000,50000))
-                                    self.folder_screen.missionUpdate(self.total_pop, self.district1.getPop(), self.district2.getPop(),
-                                    self.district3.getPop(), self.district4.getPop(), self.district5.getPop(),
-                                    self.district6.getPop(), self.district7.getPop(), self.district8.getPop())
+                                    self.doAction(self.lastContact,self.regionChoice)
+                                    self.updateTotalPop()
+                                    self.folder_screen.missionUpdate(self.total_pop, self.district1.getPop(), self.district2.getPop(), self.district3.getPop(), self.district4.getPop(), self.district5.getPop(), self.district6.getPop(), self.district7.getPop(), self.district8.getPop())
+                                    self.folder_screen.dailyMissionUpdate()
                                     self.turnManager.endTurn(self.total_pop)
                                 else:
                                     print ("Out of actions, please end turn")
@@ -265,3 +283,4 @@ def main():
         main.runGame()
 
 main()
+
