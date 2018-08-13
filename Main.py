@@ -69,6 +69,8 @@ class Main():
         self.district_types = [self.district1.getType(), self.district2.getType(),
         self.district3.getType(), self.district4.getType(), self.district5.getType(),
         self.district6.getType(), self.district7.getType(), self.district8.getType()]
+        self.map_updater = None
+
 
         self.total_pop = 0
         self.total_rep = 0
@@ -118,7 +120,8 @@ class Main():
         self.screen_height, self.drawer,
         self.district_pops, self.district_reps,
         self.district_max_pops, self.district_types,
-        self.total_pop, self.total_rep, self.gov_rep
+        self.total_pop, self.total_rep, self.gov_rep,
+        self.map_updater
         )
         # Init Newspaper Screen
         self.newspaper_screen = NewspaperScreen.Newspaper_Screen(self.screen_width, self.screen_height)
@@ -166,6 +169,22 @@ class Main():
                             self.curScreen = 0
                 elif self.curScreen == 3: # COMPUTER
                     if event.type == pg.MOUSEBUTTONDOWN:
+                        if self.detect_mouse.MouseCheck(1197,1306,182,175) == True:
+                            self.computer_screen.MapUpdate(0)
+                        if self.detect_mouse.MouseCheck(1029,1176,230,315) == True:
+                            self.computer_screen.MapUpdate(1)
+                        if self.detect_mouse.MouseCheck(1032,1276,344,450) == True:
+                            self.computer_screen.MapUpdate(2)
+                        if self.detect_mouse.MouseCheck(1525,1765,378,471) == True:
+                            self.computer_screen.MapUpdate(3)
+                        if self.detect_mouse.MouseCheck(1430,1668,171,278) == True:
+                            self.computer_screen.MapUpdate(4)
+                        if self.detect_mouse.MouseCheck(1451,1630,653,734) == True:
+                            self.computer_screen.MapUpdate(5)
+                        if self.detect_mouse.MouseCheck(1250,1309,456,581) == True:
+                            self.computer_screen.MapUpdate(6)
+                        if self.detect_mouse.MouseCheck(1157,1301,638,735) == True:
+                            self.computer_screen.MapUpdate(7)
 
                         if self.detect_mouse.MouseCheck(0,122*math.floor(self.screen_width/1920),954*math.floor(self.screen_height/1080),1080*math.floor(self.screen_height/1080)) == True:
                             self.main_menu.runScreen()

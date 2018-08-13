@@ -9,7 +9,7 @@ class Create_District:
         self.popMax = popMax
         self.type = type
 
-    def updateStats(self, newRep=0, newCurPop=0):
+    def updateStats(self, newRep, newCurPop):
         '''Updates the district's Reputation and Current Population'''
         self.rep = self.rep - newRep
         self.curPop = self.curPop - newCurPop
