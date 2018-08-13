@@ -43,6 +43,7 @@ class Folder:
         self.startscreen.blit(self.pageOneR, (955*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
         self.startscreen.blit(self.backButton, (0,954*math.floor(self.screen_height/1080)))
         pg.display.update()
+        
     def clickTab(self):
         if self.detect_mouse.MouseCheck(330*math.floor(self.screen_width/1920),365*math.floor(self.screen_width/1920),200*math.floor(self.screen_height/1080),350*math.floor(self.screen_height/1080)) == True and self.tabLoc[0] == 1:
             self.tabLoc = [0, 0, 0]
