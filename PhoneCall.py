@@ -1,6 +1,30 @@
 import pygame, time
 from IansClasses import *
 from phonezoom import currentcall
+pygame.init()
+running = True
+WHITE = (255, 255, 255)
+
+SCREENWIDTH=1920
+SCREENHEIGHT=1080
+
+
+size = (SCREENWIDTH, SCREENHEIGHT)
+screen = pygame.display.set_mode(size)
+screen.fill(WHITE)
+
+TOPLEFT = (24, 733)
+all_sprites_list = pygame.sprite.Group()
+
+
+phone = MakeSprite("assets/Phone Zoom Screens/Phone Zoom.png",0,0)
+all_sprites_list.add(phone)
+all_sprites_list.update()
+all_sprites_list.draw(screen)
+pygame.display.flip()
+
+
+
 
 class CreateText:
     def __init__(self, TEXT_START_X=137, TEXT_START_Y=838):
@@ -20,7 +44,7 @@ class CreateText:
         screen.blit(callbground, (0,0))
 
         callwindow = pygame.image.load("assets/Text box.png")
-        screen.blit(callwindow, (24, 733))
+        screen.blit(callwindow, TOPLEFT)
         pygame.display.flip()
 
         self.font = pygame.font.Font("assets/Phone Font.ttf", 50)
@@ -57,47 +81,63 @@ class CreateText:
             pygame.display.flip()
 
 
+def PhoneScript():
+    opener = open("assets/Phone Scripts.txt", "r")
+    temp = opener.read()
+    temp2 = temp.split("*")
 
+    phone_scripts = [[],[],[],[],[],[],[]]
+    phone_scripts[0].append("Army")
+    phone_scripts[1].append("Mob")
+    phone_scripts[2].append("Police")
+    phone_scripts[3].append("Looters")
+    phone_scripts[4].append("Power")
+    phone_scripts[5].append("Landlord")
+    phone_scripts[6].extend(("Region 1", "Region 2",
+    "Region 3", "Region 4", "Region 5", "Region 6"))
+
+    for i in range(len(temp2)):
+        temp = temp2[i].split("\"")
+
+
+        for x in range(len(temp)):
+            if x % 2 != 0:
+                phone_scripts[i].append(temp[x])
+
+    return phone_scripts
 
 
 
 class PhoneCall:
 
+
     def __init__(self,person):
+
         self.callscreen = None
         if person == "army":
             self.index = 0
+
         elif person == "mob":
             self.index = 1
+
         elif person == "police":
             self.index = 2
+
         elif person == "looters":
             self.index = 3
+
         elif person == "power":
             self.index = 4
+
         elif person == "landlord":
             self.index = 5
+
+
         self.choice = None
 
-    def PhoneScript():
-    self.opener = open("assets/Phone Scripts.txt", "r")
-    self.temp = self.opener.read()
-    self.temp2 = self.temp.split("*")
-    self.phone_scripts = [[],[],[],[],[],[],[]]
-    self.phone_scripts[0].append("Army")
-    self.phone_scripts[1].append("Mob")
-    self.phone_scripts[2].append("Police")
-    self.phone_scripts[3].append("Looters")
-    self.phone_scripts[4].append("Power")
-    self.phone_scripts[5].append("Landlord")
-    self.phone_scripts[6].extend(("Region 1", "Region 2",
-    "Region 3", "Region 4", "Region 5", "Region 6"))
-    for i in range(len(self.temp2)):
-        self.temp = self.temp2[i].split("\"")
-        for x in range(len(self.temp)):
-            if x % 2 != 0:
-                self.phone_scripts[i].append(self.temp[x])
-    return self.phone_scripts
+    def GetPhoneScript(self):
+        self.phonescript = PhoneScript()
+        return self.phonescript
 
     def OnPhone(self):
         return self.index
@@ -105,7 +145,7 @@ class PhoneCall:
     def ChangeScreen(self, var=0):
         self.callscreen = var
 
-        self.ps = self.PhoneScript()
+        self.ps = self.GetPhoneScript()
         if self.callscreen == 0:
             self.drawer = CreateText()
             self.drawer.AddText(self.ps[self.index][0],823, -50)
@@ -113,6 +153,11 @@ class PhoneCall:
             self.drawer.AddText("Yes.", 1250)
             self.drawer.AddText("No.", 1250, 64)
             self.drawer.ShowDisplayText()
+
+
+#            for event in pygame.event.get():
+
+
         elif self.callscreen == 1:
             self.drawer1 = CreateText()
             self.drawer1.AddText(self.ps[self.index][0],823, -50)
@@ -121,6 +166,7 @@ class PhoneCall:
             self.drawer1.SetColor(0, 0, 0)
             self.drawer1.ShowDisplayText()
             pygame.display.flip()
+
         elif self.callscreen == 2:
             self.drawer2 = CreateText()
             self.drawer2.ClearDisplayText()
@@ -129,7 +175,9 @@ class PhoneCall:
             self.drawer2.DrawRegionSelect(self)
             self.drawer2.ShowDisplayText()
             pygame.display.flip()
+
         elif self.callscreen == 3:
+
             self.drawer3 = CreateText()
             self.drawer3.ClearDisplayText()
             self.drawer3.AddText(self.ps[self.index][0],823, -50)
@@ -138,6 +186,7 @@ class PhoneCall:
             self.drawer3.ShowDisplayText()
             pygame.display.flip()
             self.choice = "Cancel"
+
         elif self.callscreen == -1:
             self.drawer4 = CreateText()
             self.drawer4.ClearDisplayText()
