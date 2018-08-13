@@ -206,14 +206,11 @@ class Main():
                                 print ("-------------")
                                 if self.turnManager.spendAction(1) == 1:
                                     print ("Used one action")
-<<<<<<< HEAD
                                 elif self.turnManager.spendAction(1) == 2:
                                     print ("Used an action and ended turn")
-=======
                                     self.folder_screen.missionUpdate(self.total_pop, self.district1.getPop(), self.district2.getPop(),
                                     self.district3.getPop(), self.district4.getPop(), self.district5.getPop(),
                                     self.district6.getPop(), self.district7.getPop(), self.district8.getPop())
->>>>>>> 39d9efe2287bc96c2d7dd8599544bf6e91ea9c59
                                 else:
                                     print ("Out of actions, please end turn")
                                 print (self.turnManager.actions)
