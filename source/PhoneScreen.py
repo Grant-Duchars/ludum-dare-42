@@ -102,9 +102,7 @@ class Phone_Screen:
         pg.display.update()
     
     def checkNum(self):
-        if len(self.callNum) < 10:
-            print(self.callNum)
-        elif len(self.callNum) > 10:
+        if len(self.callNum) > 10:
             self.callNum = ""
             self.lastNum = ""
         elif len(self.callNum) == 10:

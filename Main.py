@@ -193,15 +193,22 @@ class Main():
                                 self.phone_screen.ChangeScreen(-1)
                                 self.regionChoice = self.phone_screen.getRegion()
                                 self.lastContact = self.phone_screen.getContact()
+                                self.phone_screen.lastNum = ""
+                                self.phone_screen.callNum = ""
+                                self.phone_screen.currentCall = ""
                                 print ("-------------")
                                 print (self.regionChoice)
                                 print (self.lastContact)
                                 print ("-------------")
-                                if self.turnManager.spendAction(1) == True:
+                                if self.turnManager.spendAction(1) == 1:
                                     print ("Used one action")
+                                elif self.turnManager.spendAction(1) == 2:
+                                    print ("Used an action and ended turn")
                                 else:
-                                    print ("sorry no more actions")
+                                    print ("Out of actions, please end turn")
                                 print (self.turnManager.actions)
+                                self.phoneActive = False
+                                self.callActive = False
                                 self.main_menu.runScreen()
                                 self.curScreen = 0
                                 
