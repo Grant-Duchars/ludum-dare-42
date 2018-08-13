@@ -19,15 +19,9 @@ class Computer_Screen:
         self.gov_rep = gov_rep
         self.map_updater = map_updater
         print(total_pop)
+        self.district = 0
 
-    def MapUpdate(self, district):
-        if self.map_updater != None:
-            self.drawer.AddText(str(self.reps[district]), 1514, 910)
-            self.drawer.AddText(str(self.types[district]), 1305, 910)
-            self.drawer.AddText(str(self.pops[district]), 928, 910)
-            self.drawer.ShowDisplayText()
-            print(reps[district])
-            pg.display.update()
+
 
     def runScreen(self):
         '''Starts the computer screen'''
@@ -35,9 +29,12 @@ class Computer_Screen:
         self.startscreen.fill(self.screen_color)
         self.startscreen.blit(self.background, (0,0))
         self.startscreen.blit(self.backButton, (0,954))
+        self.drawer.ClearDisplayText()
         self.drawer.AddText(str(self.total_pop), 85, 820)
         self.drawer.AddText(str(self.total_rep), 85, 520)
         self.drawer.AddText(str(self.gov_rep), 85, 220)
-        self.MapUpdate(0)
+        self.drawer.AddText(str(self.reps[self.district]), 1514, 910)
+        self.drawer.AddText(str(self.types[self.district]), 1305, 910)
+        self.drawer.AddText(str(self.pops[self.district]), 928, 910)
         self.drawer.ShowDisplayText()
-        pg.display.update()
+        pg.display.flip()

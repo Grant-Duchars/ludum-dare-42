@@ -40,7 +40,7 @@ class Create_District:
         if self.type == 0:
             return "Urban"
         if self.type == 1:
-            return "Residential"
+            return "Suburb"
         if self.type == 2:
             return "Rural"
 

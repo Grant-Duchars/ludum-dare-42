@@ -63,13 +63,13 @@ class Main():
         self.district6 = District.Create_District("Data", randint(-20,20), randint(0,2), randint(800000,1000000),  1200000)
         self.district7 = District.Create_District("Mercury", randint(-20,20), randint(0,2), randint(500000,700000),   900000)
         self.district8 = District.Create_District("Circuit", randint(-20,20), randint(0,2), randint(500000,700000),   750000)
-        self.government = self.district8 = District.Create_District("Government", 15)
+        self.government = self.district9 = District.Create_District("Government", 15)
 
-        self.district_pops = [self.district1.getPop(), self.district2.getPop(),
+        self.district_pops = ["Click on a district to view", self.district1.getPop(), self.district2.getPop(),
         self.district3.getPop(), self.district4.getPop(), self.district5.getPop(),
         self.district6.getPop(), self.district7.getPop(), self.district8.getPop()]
 
-        self.district_reps = [self.district1.getRep(), self.district2.getRep(),
+        self.district_reps = ["", self.district1.getRep(), self.district2.getRep(),
         self.district3.getRep(), self.district4.getRep(), self.district5.getRep(),
         self.district6.getRep(), self.district7.getRep(), self.district8.getRep()]
 
@@ -81,21 +81,21 @@ class Main():
         self.district3.getMaxPop(), self.district4.getMaxPop(), self.district5.getMaxPop(),
         self.district6.getMaxPop(), self.district7.getMaxPop(), self.district8.getMaxPop()]
 
-        self.district_types = [self.district1.getType(), self.district2.getType(),
+        self.district_types = ["", self.district1.getType(), self.district2.getType(),
         self.district3.getType(), self.district4.getType(), self.district5.getType(),
         self.district6.getType(), self.district7.getType(), self.district8.getType()]
         self.map_updater = None
 
 
-        self.total_pop = 0
+
         self.total_rep = 0
         self.gov_rep = self.government.getRep()
 
-
-        for x in range(len(self.district_pops)):
+        self.total_pop = 0
+        for x in range(1, len(self.district_pops)):
             self.total_pop += self.district_pops[x]
 
-        for x in range(len(self.district_exact_reps)):
+        for x in range(1, len(self.district_exact_reps)):
             self.total_rep += self.district_exact_reps[x]
             self.total_rep /= len(self.district_exact_reps)
 
@@ -185,21 +185,29 @@ class Main():
                 elif self.curScreen == 3: # COMPUTER
                     if event.type == pg.MOUSEBUTTONDOWN:
                         if self.detect_mouse.MouseCheck(1197,1306,182,175) == True:
-                            self.computer_screen.MapUpdate(0)
+                            self.computer_screen.district = 1
+                            self.computer_screen.runScreen()
                         if self.detect_mouse.MouseCheck(1029,1176,230,315) == True:
-                            self.computer_screen.MapUpdate(1)
+                            self.computer_screen.district = 2
+                            self.computer_screen.runScreen()
                         if self.detect_mouse.MouseCheck(1032,1276,344,450) == True:
-                            self.computer_screen.MapUpdate(2)
+                            self.computer_screen.district = 3
+                            self.computer_screen.runScreen()
                         if self.detect_mouse.MouseCheck(1525,1765,378,471) == True:
-                            self.computer_screen.MapUpdate(3)
+                            self.computer_screen.district = 4
+                            self.computer_screen.runScreen()
                         if self.detect_mouse.MouseCheck(1430,1668,171,278) == True:
-                            self.computer_screen.MapUpdate(4)
+                            self.computer_screen.district = 5
+                            self.computer_screen.runScreen()
                         if self.detect_mouse.MouseCheck(1451,1630,653,734) == True:
-                            self.computer_screen.MapUpdate(5)
-                        if self.detect_mouse.MouseCheck(1250,1309,456,581) == True:
-                            self.computer_screen.MapUpdate(6)
+                            self.computer_screen.district = 6
+                            self.computer_screen.runScreen()
+                        if self.detect_mouse.MouseCheck(1250,1509,456,581) == True:
+                            self.computer_screen.district = 7
+                            self.computer_screen.runScreen()
                         if self.detect_mouse.MouseCheck(1157,1301,638,735) == True:
-                            self.computer_screen.MapUpdate(7)
+                            self.computer_screen.district = 8
+                            self.computer_screen.runScreen()
 
                         if self.detect_mouse.MouseCheck(0,122*math.floor(self.screen_width/1920),954*math.floor(self.screen_height/1080),1080*math.floor(self.screen_height/1080)) == True:
                             self.main_menu.runScreen()
