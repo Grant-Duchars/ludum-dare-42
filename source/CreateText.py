@@ -1,5 +1,9 @@
+import pygame
 class CreateText:
-    def __init__(self, TEXT_START_X=137, TEXT_START_Y=838):
+    def __init__(self, width, height, TEXT_START_X=0, TEXT_START_Y=0):
+        self.screen_width = width
+        self.screen_height = height
+        self.startscreen = pygame.display.set_mode((self.screen_width, self.screen_height),pygame.NOFRAME)
         self.TEXT_START_X = TEXT_START_X
         self.TEXT_START_Y = TEXT_START_Y
         self.textstart = [TEXT_START_X, TEXT_START_Y]
@@ -25,7 +29,10 @@ class CreateText:
         self.AddText(object.ps[6][4], 1250, 64)
         self.AddText(object.ps[6][5], 1500, 64)
 
-    def DrawMapNames
+    def MapUpdate():
+
+
+
 
     def SetColor(self, r=0, g=0, b=0):
         self.color = (r, g, b)
@@ -39,5 +46,5 @@ class CreateText:
     def ShowDisplayText(self):
         for line , xoffset, yoffset in zip(self.lines, self.xoffsets, self.yoffsets):
             self.text = self.font.render(line, True, self.color)
-            screen.blit(self.text, [self.TEXT_START_X+xoffset,self.TEXT_START_Y+yoffset])
+            self.startscreen.blit(self.text, [self.TEXT_START_X+xoffset,self.TEXT_START_Y+yoffset])
             pygame.display.flip()
