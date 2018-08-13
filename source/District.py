@@ -2,16 +2,21 @@ import pygame as pg, math, time
 
 class Create_District:
 
-    def __init__(self, name, rep, curPop, popMax):
+    def __init__(self, name, rep=0, type=0, curPop=0, popMax=0):
         self.name = name
         self.rep = rep
         self.curPop = curPop
         self.popMax = popMax
+        self.type = type
 
-    def updateStats(self, newRep, newCurPop):
+    def updateStats(self, newRep=0, newCurPop=0):
         '''Updates the district's Reputation and Current Population'''
         self.rep = self.rep + newRep
         self.curPop = self.curPop + newCurPop
+
+
+    def getName(self):
+        return self.name
 
     def getRep(self):
         '''Checks the current reputation and returns a title'''
@@ -28,9 +33,22 @@ class Create_District:
         elif self.rep > 50:
             return "Favored"
 
+    def getExactRep(self):
+        return self.rep
+
+    def getType(self):
+        if self.type == 0:
+            return "Urban"
+        if self.type == 1:
+            return "Residential"
+        if self.type == 2:
+            return "Rural"
+
     def getPop(self):
         '''Returns the current population of the district'''
         return self.curPop
+    def getMaxPop(self):
+        return self.popMax
 
     def checkPop(self):
         '''Checks if the current population is greater than the max population and returns a boolean'''
