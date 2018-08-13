@@ -1,6 +1,6 @@
 import pygame as pg, sys, math, time, os, ctypes, platform
 from random import randint
-from source import MainMenu, DetectMouse, FolderScreen, ContactBook, ComputerScreen, NewspaperScreen, District, Turns, PhoneScreen, PhoneCall
+from source import MainMenu, DetectMouse, FolderScreen, ContactBook, ComputerScreen, NewspaperScreen, District, Turns, PhoneScreen
 
 class Main():
 
@@ -133,7 +133,7 @@ class Main():
                                 self.phone_screen.ChangeScreen(3)
                             elif self.phone_screen.CallTracking() == -1:
                                 self.phone_screen.ChangeScreen(-1)
-                    
+
                 elif self.curScreen == 5:
                     if event.type == pg.MOUSEBUTTONDOWN:
                         if self.detect_mouse.MouseCheck(0,122*math.floor(self.screen_width/1920),954*math.floor(self.screen_height/1080),1080*math.floor(self.screen_height/1080)) == True:

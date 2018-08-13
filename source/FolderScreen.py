@@ -60,7 +60,7 @@ class Folder:
         pg.font.init()
         self.titleFont = pg.font.SysFont('Times New Roman', 40*math.floor(self.screen_width/1920))
         self.subFont = pg.font.SysFont('Times New Roman', 30*math.floor(self.screen_width/1920))
-        self.parFont = pg.font.SysFont('Times New Roman', 15*math.floor(self.screen_width/1920))
+        self.parFont = pg.font.SysFont('Times New Roman', 20*math.floor(self.screen_width/1920))
 
     def missionUpdate(self, curPop, d1Pop, d2Pop, d3Pop, d4Pop, d5Pop, d6Pop, d7Pop, d8Pop):
         self.curPop = curPop
@@ -88,7 +88,10 @@ class Folder:
     def urgeBlit(self):
         for i in range(0,len(self.urgeGoal)-1):
             self.urgeMis = self.parFont.render(self.urgeGoal[i], False, (0, 0, 0))
-            self.startscreen.blit(self.urgeMis,(100*math.floor(self.screen_width/1920),(300+40*i)*math.floor(self.screen_height/1080)))
+            self.startscreen.blit(self.urgeMis,(400*math.floor(self.screen_width/1920),(300+40*i)*math.floor(self.screen_height/1080)))
+    def mainBlit(self):
+        self.mainText = self.parFont.render(self.mainGoal, False, (0, 0, 0))
+        self.startscreen.blit(self.mainText,(400*math.floor(self.screen_width/1920),300*math.floor(self.screen_height/1080)))
 
     def runScreen(self):
         '''Starts the folder screen'''
@@ -110,7 +113,7 @@ class Folder:
         self.startscreen.blit(self.pageOneSub,(1000*math.floor(self.screen_width/1920),450*math.floor(self.screen_height/1080)))
         self.startscreen.blit(self.pageOneSubB,(1150*math.floor(self.screen_width/1920),500*math.floor(self.screen_height/1080)))
         pg.display.update()
-        
+
     def clickTab(self):
         if self.detect_mouse.MouseCheck(330*math.floor(self.screen_width/1920),365*math.floor(self.screen_width/1920),200*math.floor(self.screen_height/1080),350*math.floor(self.screen_height/1080)) == True and self.tabLoc[0] == 1:
             self.tabLoc = [0, 0, 0]
@@ -131,6 +134,7 @@ class Folder:
             self.startscreen.blit(self.pageTwoR, (955*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
             self.startscreen.blit(self.pageOneL, (255*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
             self.startscreen.blit(self.backButton, (0,954*math.floor(self.screen_height/1080)))
+            self.mainBlit()
         #blue tab control
         elif self.detect_mouse.MouseCheck(330*math.floor(self.screen_width/1920),365*math.floor(self.screen_width/1920),370*math.floor(self.screen_height/1080),520*math.floor(self.screen_height/1080)) == True and self.tabLoc[1] == 1:
             self.tabLoc = [1, 0, 0]
@@ -140,6 +144,7 @@ class Folder:
             self.startscreen.blit(self.pageTwoR, (955*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
             self.startscreen.blit(self.pageOneL, (255*math.floor(self.screen_width/1920),145*math.floor(self.screen_height/1080)))
             self.startscreen.blit(self.backButton, (0,954*math.floor(self.screen_height/1080)))
+            self.mainBlit()
         elif self.detect_mouse.MouseCheck(1550*math.floor(self.screen_width/1920),1585*math.floor(self.screen_width/1920),370*math.floor(self.screen_height/1080),520*math.floor(self.screen_height/1080)) == True and self.tabLoc[1] == 0:
             self.tabLoc = [1, 1, 0]
             self.startscreen.blit(self.desk, (0,-2450*math.floor(self.screen_height/1080)))
