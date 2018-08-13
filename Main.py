@@ -29,6 +29,8 @@ class Main():
         self.popGoal = 0
         self.phoneActive = False
         self.callActive = False
+        self.regionChoice = None
+        self.lastContact = None
 
     def runGame(self):
         """Runs the Game"""
@@ -189,6 +191,20 @@ class Main():
                                 self.phone_screen.ChangeScreen(3)
                             elif self.phone_screen.CallTracking() == -1:
                                 self.phone_screen.ChangeScreen(-1)
+                                self.regionChoice = self.phone_screen.getRegion()
+                                self.lastContact = self.phone_screen.getContact()
+                                print ("-------------")
+                                print (self.regionChoice)
+                                print (self.lastContact)
+                                print ("-------------")
+                                if self.turnManager.spendAction(1) == True:
+                                    print ("Used one action")
+                                else:
+                                    print ("sorry no more actions")
+                                print (self.turnManager.actions)
+                                self.main_menu.runScreen()
+                                self.curScreen = 0
+                                
 
                 elif self.curScreen == 5:
                     if event.type == pg.MOUSEBUTTONDOWN:

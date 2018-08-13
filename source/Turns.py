@@ -14,6 +14,7 @@ class Turns:
             return False
         else:
             self.actions = self.actions - num
+            return True
 
     def endTurn(self, curPop):
         '''Returns a 2 for a win, a 3 for a lose, and a 1 for anything else'''

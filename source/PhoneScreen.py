@@ -135,7 +135,7 @@ class Phone_Screen:
         self.choice = None
 
     def PhoneScript(self):
-        self.opener = open("assets/Phone Scripts.txt", "r")
+        self.opener = open("assets/Phone_Scripts.txt", "r")
         self.temp = self.opener.read()
         self.temp2 = self.temp.split("*")
         self.phone_scripts = [[],[],[],[],[],[],[]]
@@ -153,7 +153,7 @@ class Phone_Screen:
                 if x % 2 != 0:
                     self.phone_scripts[i].append(self.temp[x])
         return self.phone_scripts
-        
+
     def ChangeScreen(self, var=0):
         self.callscreen = var
         self.ps = self.PhoneScript()
@@ -193,12 +193,17 @@ class Phone_Screen:
         elif self.callscreen == -1:
             self.drawer4 = CreatePhoneText.CreateText(self.screen_width, self.screen_height, 137, 838)
             self.drawer4.ClearDisplayText()
-            self.finalstring = (self.ps[self.index][5]
-            + " " + self.choice + "... " + self.ps[self.index][6])
+            self.finalstring = (self.choice + "... " + self.ps[self.index][5])
             self.drawer4.AddText("Continue...", 1500, 64)
             self.drawer4.AddText(self.finalstring)
             self.drawer4.ShowDisplayText()
             pg.display.flip()
+    
+    def getRegion(self):
+        return self.choice
+
+    def getContact(self):
+        return self.currentCall
 
     def CallTracking(self):
         if self.callscreen == 0:
