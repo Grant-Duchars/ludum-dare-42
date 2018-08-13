@@ -153,10 +153,7 @@ class Phone_Screen:
                 if x % 2 != 0:
                     self.phone_scripts[i].append(self.temp[x])
         return self.phone_scripts
-
-    def OnPhone(self):
-        return self.index
-
+        
     def ChangeScreen(self, var=0):
         self.callscreen = var
         self.ps = self.PhoneScript()

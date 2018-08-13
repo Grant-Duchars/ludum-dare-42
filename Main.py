@@ -1,6 +1,6 @@
 import pygame as pg, sys, math, time, os, ctypes, platform
 from random import randint
-from source import MainMenu, DetectMouse, FolderScreen, ContactBook, ComputerScreen, NewspaperScreen, District, Turns, PhoneScreen, PhoneCall
+from source import MainMenu, DetectMouse, FolderScreen, ContactBook, ComputerScreen, NewspaperScreen, District, Turns, PhoneScreen
 
 class Main():
 
