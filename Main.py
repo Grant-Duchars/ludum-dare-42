@@ -27,6 +27,7 @@ class Main():
         # Computer = 3, Phone = 4, Contacts = 5.
         self.startPop = 0
         self.popGoal = 0
+        self.phoneActive = False
 
     def runGame(self):
         """Runs the Game"""
@@ -104,7 +105,12 @@ class Main():
                             self.curScreen = 0
                 elif self.curScreen == 4:
                     if event.type == pg.MOUSEBUTTONDOWN:
-                        self.phone_screen.clickButton()
+                        if self.phoneActive == False:
+                            self.phone_screen.clickButton()
+                            if self.phone_screen.checkNum() == True:
+                                self.phoneActive = True
+                        elif self.phoneActive == True:
+                            self.main_menu.runScreen()
                         if self.detect_mouse.MouseCheck(0,122*math.floor(self.screen_width/1920),954*math.floor(self.screen_height/1080),1080*math.floor(self.screen_height/1080)) == True:
                             self.main_menu.runScreen()
                             self.curScreen = 0

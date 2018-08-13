@@ -1,30 +1,6 @@
 import pygame, time
 from IansClasses import *
 from phonezoom import currentcall
-pygame.init()
-running = True
-WHITE = (255, 255, 255)
-
-SCREENWIDTH=1920
-SCREENHEIGHT=1080
-
-
-size = (SCREENWIDTH, SCREENHEIGHT)
-screen = pygame.display.set_mode(size)
-screen.fill(WHITE)
-
-TOPLEFT = (24, 733)
-all_sprites_list = pygame.sprite.Group()
-
-
-phone = MakeSprite("assets/Phone Zoom Screens/Phone Zoom.png",0,0)
-all_sprites_list.add(phone)
-all_sprites_list.update()
-all_sprites_list.draw(screen)
-pygame.display.flip()
-
-
-
 
 class CreateText:
     def __init__(self, TEXT_START_X=137, TEXT_START_Y=838):
@@ -44,7 +20,7 @@ class CreateText:
         screen.blit(callbground, (0,0))
 
         callwindow = pygame.image.load("assets/Text box.png")
-        screen.blit(callwindow, TOPLEFT)
+        screen.blit(callwindow, (24, 733))
         pygame.display.flip()
 
         self.font = pygame.font.Font("assets/Phone Font.ttf", 50)
