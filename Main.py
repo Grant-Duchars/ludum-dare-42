@@ -221,6 +221,9 @@ class Main():
                                         elif self.regionChoice == "region6":
                                             self.district6.updateStats(0,randint(20000,50000))
                                     print (self.district1.getPop())
+                                    self.folder_screen.missionUpdate(self.total_pop, self.district1.getPop(), self.district2.getPop(),
+                                    self.district3.getPop(), self.district4.getPop(), self.district5.getPop(),
+                                    self.district6.getPop(), self.district7.getPop(), self.district8.getPop())
                                 elif self.turnManager.spendAction(1) == 2:
                                     print ("Used an action and ended turn")
                                     if self.lastContact == "army":
@@ -239,6 +242,7 @@ class Main():
                                     self.folder_screen.missionUpdate(self.total_pop, self.district1.getPop(), self.district2.getPop(),
                                     self.district3.getPop(), self.district4.getPop(), self.district5.getPop(),
                                     self.district6.getPop(), self.district7.getPop(), self.district8.getPop())
+                                    self.folder_screen.dailyMissionUpdate()
                                 else:
                                     print ("Out of actions, please end turn")
                                 print (self.turnManager.actions)
@@ -256,7 +260,7 @@ class Main():
 
             if key[pg.K_ESCAPE]: #If Escape key is pressed, close window.
                 sys.exit()
-
+                
 def main():
     pg.init()
     while True:
