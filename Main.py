@@ -106,7 +106,7 @@ class Main():
         # Init Turns
         self.turnManager = Turns.Turns(21, self.startPop, self.popGoal)
         # Init Folder Screen
-        self.folder_screen = FolderScreen.Folder(self.screen_width, self.screen_height)
+        self.folder_screen = FolderScreen.Folder(self.screen_width, self.screen_height, self.startPop, self.popGoal)
         # Init Contacts Screen
         self.contact_book = ContactBook.Contact_Book(self.screen_width, self.screen_height)
         # Init Computer Screen
