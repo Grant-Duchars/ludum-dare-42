@@ -74,6 +74,7 @@ class Main():
         self.total_rep = 0
         self.gov_rep = self.government.getRep()
 
+
         for x in range(len(self.district_pops)):
             self.total_pop += self.district_pops[x]
 
@@ -123,6 +124,9 @@ class Main():
         self.newspaper_screen = NewspaperScreen.Newspaper_Screen(self.screen_width, self.screen_height)
         # Init Phone Screen
         self.phone_screen = PhoneScreen.Phone_Screen(self.screen_width, self.screen_height)
+        #first mission
+        self.folder_screen.missionUpdate(self.total_pop, self.district1.getPop(), self.district2.getPop(), self.district3.getPop(), self.district4.getPop(), self.district5.getPop(), self.district6.getPop(), self.district7.getPop(), self.district8.getPop())
+        self.folder_screen.dailyMissionUpdate()
         # Main Game Loop
         while True:
             self.clock.tick(10)
@@ -199,12 +203,15 @@ class Main():
                                 print ("-------------")
                                 if self.turnManager.spendAction(1) == True:
                                     print ("Used one action")
+                                    self.folder_screen.missionUpdate(self.total_pop, self.district1.getPop(), self.district2.getPop(),
+                                    self.district3.getPop(), self.district4.getPop(), self.district5.getPop(),
+                                    self.district6.getPop(), self.district7.getPop(), self.district8.getPop())
                                 else:
                                     print ("sorry no more actions")
                                 print (self.turnManager.actions)
                                 self.main_menu.runScreen()
                                 self.curScreen = 0
-                                
+
 
                 elif self.curScreen == 5:
                     if event.type == pg.MOUSEBUTTONDOWN:
