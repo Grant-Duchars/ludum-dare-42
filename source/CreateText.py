@@ -11,7 +11,7 @@ class CreateText:
         self.color = (0, 0, 0)
 
 
-        self.font = pygame.font.Font("assets/Phone Font.ttf", 50)
+        self.font = pygame.font.Font("assets/Retro Computer_Demo.ttf", 25)
         self.lines = []
         self.xoffsets = []
         self.yoffsets = []
@@ -29,7 +29,7 @@ class CreateText:
         self.AddText(object.ps[6][4], 1250, 64)
         self.AddText(object.ps[6][5], 1500, 64)
 
-    def MapUpdate():
+#    def MapUpdate():
 
 
 
