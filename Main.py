@@ -47,6 +47,10 @@ class Main():
             elif region == "Region 6":
                 self.district6.updateStats(randint(5,10),randint(20000,50000))
 
+    def updateTotalPop(self):
+        self.total_pop = 0
+        self.total_pop = self.district1.getPop() + self.district2.getPop() + self.district3.getPop() + self.district4.getPop() + self.district5.getPop() + self.district6.getPop() + self.district7.getPop() + self.district8.getPop()
+
     def runGame(self):
         """Runs the Game"""
         # Starts the main menu
@@ -245,12 +249,12 @@ class Main():
                                 if self.turnManager.spendAction(1) == 1:
                                     print ("Used one action")
                                     self.doAction(self.lastContact,self.regionChoice)
+                                    self.updateTotalPop()
                                     self.folder_screen.missionUpdate(self.total_pop, self.district1.getPop(), self.district2.getPop(), self.district3.getPop(), self.district4.getPop(), self.district5.getPop(), self.district6.getPop(), self.district7.getPop(), self.district8.getPop())
                                 elif self.turnManager.spendAction(1) == 2:
                                     print ("Used an action and ended turn")
                                     self.doAction(self.lastContact,self.regionChoice)
-                                    for x in range(len(self.district_pops)):
-                                        self.total_pop += self.district_pops[x]
+                                    self.updateTotalPop()
                                     self.folder_screen.missionUpdate(self.total_pop, self.district1.getPop(), self.district2.getPop(), self.district3.getPop(), self.district4.getPop(), self.district5.getPop(), self.district6.getPop(), self.district7.getPop(), self.district8.getPop())
                                     self.turnManager.endTurn(self.total_pop)
                                 else:
