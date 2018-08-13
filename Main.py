@@ -208,33 +208,33 @@ class Main():
                                     print ("Used one action")
                                     print (self.district1.getPop())
                                     if self.lastContact == "army":
-                                        if self.regionChoice == "region1":
+                                        if self.regionChoice == "Region 1":
                                             self.district1.updateStats(0,randint(20000,50000))
-                                        elif self.regionChoice == "region2":
+                                        elif self.regionChoice == "Region 2":
                                             self.district2.updateStats(0,randint(20000,50000))
-                                        elif self.regionChoice == "region3":
+                                        elif self.regionChoice == "Region 3":
                                             self.district3.updateStats(0,randint(20000,50000))
-                                        elif self.regionChoice == "region4":
+                                        elif self.regionChoice == "Region 4":
                                             self.district4.updateStats(0,randint(20000,50000))
-                                        elif self.regionChoice == "region5":
+                                        elif self.regionChoice == "Region 5":
                                             self.district5.updateStats(0,randint(20000,50000))
-                                        elif self.regionChoice == "region6":
+                                        elif self.regionChoice == "Region 6":
                                             self.district6.updateStats(0,randint(20000,50000))
                                     print (self.district1.getPop())
                                 elif self.turnManager.spendAction(1) == 2:
                                     print ("Used an action and ended turn")
                                     if self.lastContact == "army":
-                                        if self.regionChoice == "region1":
+                                        if self.regionChoice == "Region 1":
                                             self.district1.updateStats(0,randint(20000,50000))
-                                        elif self.regionChoice == "region2":
+                                        elif self.regionChoice == "Region 2":
                                             self.district2.updateStats(0,randint(20000,50000))
-                                        elif self.regionChoice == "region3":
+                                        elif self.regionChoice == "Region 3":
                                             self.district3.updateStats(0,randint(20000,50000))
-                                        elif self.regionChoice == "region4":
+                                        elif self.regionChoice == "Region 4":
                                             self.district4.updateStats(0,randint(20000,50000))
-                                        elif self.regionChoice == "region5":
+                                        elif self.regionChoice == "Region 5":
                                             self.district5.updateStats(0,randint(20000,50000))
-                                        elif self.regionChoice == "region6":
+                                        elif self.regionChoice == "Region 6":
                                             self.district6.updateStats(0,randint(20000,50000))
                                     self.folder_screen.missionUpdate(self.total_pop, self.district1.getPop(), self.district2.getPop(),
                                     self.district3.getPop(), self.district4.getPop(), self.district5.getPop(),
