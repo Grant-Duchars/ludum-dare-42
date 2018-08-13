@@ -65,14 +65,16 @@ class Folder:
     def missionUpdate(self, curPop, d1Pop, d2Pop, d3Pop, d4Pop, d5Pop, d6Pop, d7Pop, d8Pop):
         self.curPop = curPop
         self.dPopList = [d1Pop, d2Pop, d3Pop, d4Pop, d5Pop, d6Pop, d7Pop, d8Pop]
-        for i in range(0,len(self.urgeGoal)-1):
+        for i in range(0,math.floor(len(self.urgeGoal))):
             if self.urgeGoalDis[i] <= self.urgeGoalPop[i]:
                 self.urgeGoalTime[i] = 0
                 self.misCntUrge=self.misCntUrge-1
 
+        self.misCntTot = self.misCntMain + self.misCntUrge + self.misCntSide
+
 
     def dailyMissionUpdate(self):
-        for i in range(0,len(self.urgeGoalTime)-1):
+        for i in range(0,math.floor(len(self.urgeGoalTime))):
         #time will stay zero when complete and -1 when failed
             if self.urgeGoalTime[i] != 0 and self.urgeGoalTime[i] != -1:
                 self.urgeGoalTime[i] = self.urgeGoalTime[i]-1
@@ -80,13 +82,16 @@ class Folder:
                     self.urgeGoalTime[i] = -1
         self.distSelect = randint(0,7)
         self.urgeGoalDis.append(self.dPopList[self.distSelect])
-        self.urgeGoalPop.append(randint(self.urgeGoalMin*self.dPopList[self.distSelect],self.urgeGoalMax*self.dPopList[self.distSelect]))
+        self.urgeGoalPop.append(randint(math.floor(self.urgeGoalMin*self.dPopList[self.distSelect]),math.floor(self.urgeGoalMax*self.dPopList[self.distSelect])))
         self.urgeGoalTime.append(1)
-        self.urgeGoal.append("Lower the population of "+str(self.dNames[self.distSelect])+ " to "+ str(self.urgeGoalPop[len(self.urgeGoalPop)-1])+" within "+ str(self.urgeGoalTime[len(self.urgeGoalTime)-1])+".")
+        self.urgeGoal.append("Lower the population of "+str(self.dNames[self.distSelect])+ " to "+ str(self.urgeGoalPop[len(self.urgeGoalPop)-1])+" within "+ str(self.urgeGoalTime[len(self.urgeGoalTime)-1])+" day.")
         self.misCntUrge = self.misCntUrge+1
 
+        self.misCntTot = self.misCntMain + self.misCntUrge + self.misCntSide
+
     def urgeBlit(self):
-        for i in range(0,len(self.urgeGoal)-1):
+        for i in range(0,math.floor(len(self.urgeGoal))):
+            print(i)
             self.urgeMis = self.parFont.render(self.urgeGoal[i], False, (0, 0, 0))
             self.startscreen.blit(self.urgeMis,(400*math.floor(self.screen_width/1920),(300+40*i)*math.floor(self.screen_height/1080)))
     def mainBlit(self):

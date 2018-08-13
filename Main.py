@@ -74,6 +74,7 @@ class Main():
         self.total_rep = 0
         self.gov_rep = self.government.getRep()
 
+
         for x in range(len(self.district_pops)):
             self.total_pop += self.district_pops[x]
 
@@ -123,6 +124,9 @@ class Main():
         self.newspaper_screen = NewspaperScreen.Newspaper_Screen(self.screen_width, self.screen_height)
         # Init Phone Screen
         self.phone_screen = PhoneScreen.Phone_Screen(self.screen_width, self.screen_height)
+        #first mission
+        self.folder_screen.missionUpdate(self.total_pop, self.district1.getPop(), self.district2.getPop(), self.district3.getPop(), self.district4.getPop(), self.district5.getPop(), self.district6.getPop(), self.district7.getPop(), self.district8.getPop())
+        self.folder_screen.dailyMissionUpdate()
         # Main Game Loop
         while True:
             self.clock.tick(10)
@@ -202,8 +206,14 @@ class Main():
                                 print ("-------------")
                                 if self.turnManager.spendAction(1) == 1:
                                     print ("Used one action")
+<<<<<<< HEAD
                                 elif self.turnManager.spendAction(1) == 2:
                                     print ("Used an action and ended turn")
+=======
+                                    self.folder_screen.missionUpdate(self.total_pop, self.district1.getPop(), self.district2.getPop(),
+                                    self.district3.getPop(), self.district4.getPop(), self.district5.getPop(),
+                                    self.district6.getPop(), self.district7.getPop(), self.district8.getPop())
+>>>>>>> 39d9efe2287bc96c2d7dd8599544bf6e91ea9c59
                                 else:
                                     print ("Out of actions, please end turn")
                                 print (self.turnManager.actions)
@@ -211,7 +221,7 @@ class Main():
                                 self.callActive = False
                                 self.main_menu.runScreen()
                                 self.curScreen = 0
-                                
+
 
                 elif self.curScreen == 5:
                     if event.type == pg.MOUSEBUTTONDOWN:
