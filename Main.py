@@ -28,6 +28,7 @@ class Main():
         self.startPop = 0
         self.popGoal = 0
         self.phoneActive = False
+        self.callActive = False
 
     def runGame(self):
         """Runs the Game"""
