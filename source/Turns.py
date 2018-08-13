@@ -9,7 +9,11 @@ class Turns:
         self.popGoal = popGoal
 
     def spendAction(self, num):
-        self.actions = self.actions - num
+        '''Spends (X) actions and returns false is incapable'''
+        if self.actions - num < 0:
+            return False
+        else:
+            self.actions = self.actions - num
 
     def endTurn(self, curPop):
         '''Returns a 2 for a win, a 3 for a lose, and a 1 for anything else'''

@@ -1,0 +1,38 @@
+Army: 
+
+
+"Would you like to attack with overwhelming force?", "Roger that!", "If you say so sir...", "Sir, what areas would you like us to decimate?", "Decimate", "roger that!"
+
+
+*Mob: 
+
+
+
+"I am the mob boss", "I like watching The Godfather"
+
+
+*Police: 
+
+
+
+"We are the police", "We aren't corrupt"
+
+
+*Looters: 
+
+
+
+"I am a looter", "I am from Ferguson, MO"
+
+*Power:
+
+
+
+"I control the power", "I'm not really sure how either"
+
+
+*Landlord: 
+
+
+
+"I am the landlord", "and you thought San Francisco was expensive!"		

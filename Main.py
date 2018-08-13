@@ -1,6 +1,6 @@
 import pygame as pg, sys, math, time, os, ctypes, platform
 from random import randint
-from source import MainMenu, DetectMouse, FolderScreen, ContactBook, ComputerScreen, NewspaperScreen, District, Turns
+from source import MainMenu, DetectMouse, FolderScreen, ContactBook, ComputerScreen, NewspaperScreen, District, Turns, PhoneScreen, PhoneCall
 
 class Main():
 
@@ -27,6 +27,8 @@ class Main():
         # Computer = 3, Phone = 4, Contacts = 5.
         self.startPop = 0
         self.popGoal = 0
+        self.phoneActive = False
+        self.callActive = False
 
     def runGame(self):
         """Runs the Game"""
@@ -36,7 +38,7 @@ class Main():
         # Init DetectMouse
         self.detect_mouse = DetectMouse.Detect_Mouse()
         # Create Districts
-        self.district1 = District.Create_District("District1", randint(-20,20), randint(200000,250000),   300000)
+        self.district1 = District.Create_District("District1", randint(-20,20), randint(200000,250000),   300000) #(name, reputation, startpop, maxpop)
         self.district2 = District.Create_District("District2", randint(-20,20), randint(200000,300000),   500000)
         self.district3 = District.Create_District("District3", randint(-20,20), randint(500000,700000),   1000000)
         self.district4 = District.Create_District("District4", randint(-20,20), randint(600000,1000000),  1250000)
@@ -44,6 +46,9 @@ class Main():
         self.district6 = District.Create_District("District6", randint(-20,20), randint(800000,1000000),  1200000)
         self.district7 = District.Create_District("District7", randint(-20,20), randint(500000,700000),   900000)
         self.district8 = District.Create_District("District8", randint(-20,20), randint(500000,700000),   750000)
+        self.district_array = [self.district1, self.district2,
+        self.district3, self.district4, self.district5,
+        self.district6, self.district7, self.district8]
         # Gets current pop
         self.startPop = self.district1.getPop() + self.district2.getPop() + self.district3.getPop() + self.district4.getPop() + self.district5.getPop() + self.district6.getPop() + self.district7.getPop() + self.district8.getPop()
         # Generates main goal
@@ -53,12 +58,16 @@ class Main():
         # Init Folder Screen
         self.folder_screen = FolderScreen.Folder(self.screen_width, self.screen_height, self.startPop, self.popGoal)
         # Init Contacts Screen
-        self.contact_book = ContactBook.Contact_Book()
+        self.contact_book = ContactBook.Contact_Book(self.screen_width, self.screen_height)
         # Init Computer Screen
-        self.computer_screen = ComputerScreen.Computer_Screen()
+        self.computer_screen = ComputerScreen.Computer_Screen(self.screen_width,
+        self.screen_height,
+        self.district_array
+        )
         # Init Newspaper Screen
-        self.newspaper_screen = NewspaperScreen.Newspaper_Screen()
-
+        self.newspaper_screen = NewspaperScreen.Newspaper_Screen(self.screen_width, self.screen_height)
+        # Init Phone Screen
+        self.phone_screen = PhoneScreen.Phone_Screen(self.screen_width, self.screen_height)
         # Main Game Loop
         while True:
             self.clock.tick(10)
@@ -80,6 +89,7 @@ class Main():
                             self.computer_screen.runScreen()
                             self.curScreen = 3
                         elif self.detect_mouse.MouseCheck(1464*math.floor(self.screen_width/1920),1692*math.floor(self.screen_width/1920),335*math.floor(self.screen_height/1080),513*math.floor(self.screen_height/1080)) == True:
+                            self.phone_screen.runScreen()
                             self.curScreen = 4
                         elif self.detect_mouse.MouseCheck(1382*math.floor(self.screen_width/1920),1552*math.floor(self.screen_width/1920),570*math.floor(self.screen_height/1080),813*math.floor(self.screen_height/1080)) == True:
                             self.contact_book.runScreen()
@@ -100,6 +110,30 @@ class Main():
                         if self.detect_mouse.MouseCheck(0,122*math.floor(self.screen_width/1920),954*math.floor(self.screen_height/1080),1080*math.floor(self.screen_height/1080)) == True:
                             self.main_menu.runScreen()
                             self.curScreen = 0
+                elif self.curScreen == 4:
+                    if event.type == pg.MOUSEBUTTONDOWN:
+                        if self.phoneActive == False:
+                            self.phone_screen.clickButton()
+                            if self.phone_screen.checkNum() == True:
+                                self.phoneActive = True
+                        if self.detect_mouse.MouseCheck(0,122*math.floor(self.screen_width/1920),954*math.floor(self.screen_height/1080),1080*math.floor(self.screen_height/1080)) == True:
+                            self.main_menu.runScreen()
+                            self.curScreen = 0
+                    if self.phoneActive == True and self.callActive == False:
+                        self.phone_screen.phoneCallInit()
+                        self.phone_screen.ChangeScreen()
+                        self.callActive = True
+                    elif self.phoneActive == True and self.callActive == True:
+                        if event.type == pg.MOUSEBUTTONDOWN:
+                            if self.phone_screen.CallTracking() == 1:
+                                self.phone_screen.ChangeScreen(1)
+                            elif self.phone_screen.CallTracking() == 2:
+                                self.phone_screen.ChangeScreen(2)
+                            elif self.phone_screen.CallTracking() == 3:
+                                self.phone_screen.ChangeScreen(3)
+                            elif self.phone_screen.CallTracking() == -1:
+                                self.phone_screen.ChangeScreen(-1)
+                    
                 elif self.curScreen == 5:
                     if event.type == pg.MOUSEBUTTONDOWN:
                         if self.detect_mouse.MouseCheck(0,122*math.floor(self.screen_width/1920),954*math.floor(self.screen_height/1080),1080*math.floor(self.screen_height/1080)) == True:
