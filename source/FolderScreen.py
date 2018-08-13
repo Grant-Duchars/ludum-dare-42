@@ -2,6 +2,7 @@ import pygame as pg, sys, math, time, os, ctypes, platform
 from source import DetectMouse
 
 class Folder:
+<<<<<<< Updated upstream
 
     def __init__(self, width, height):
         self.screen_width = width
@@ -26,6 +27,21 @@ class Folder:
         self.pageFour = pg.transform.scale(self.pageFour,(700*math.floor(self.screen_width/1920),800*math.floor(self.screen_height/1080)))
         self.backButton = pg.image.load("assets/back_button.png")
         self.backButton = pg.transform.scale(self.backButton,(124*math.floor(self.screen_width/1920),125*math.floor(self.screen_height/1080)))
+=======
+    def __init__(self):
+        if (platform.system() == "Windows") == True:
+            ctypes.windll.user32.SetProcessDPIAware()
+            self.width = ctypes.windll.user32.GetSystemMetrics(0)
+            self.height = ctypes.windll.user32.GetSystemMetrics(0)
+        else:
+            self.width = 1920
+            self.height = 1080
+
+            
+        self.background = pg.image.load("assets/background.png")
+        self.folderOpen = pg.image.load("assets/FileFolderOpen.png")
+        self.folderOpen = pg.transform.scale(self.folderOpen,(1720,880))
+>>>>>>> Stashed changes
         self.screen_color = (128, 0, 0)
         self.clock = pg.time.Clock()
         self.tabLoc = [0, 0, 0]
