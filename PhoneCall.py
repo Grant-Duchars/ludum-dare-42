@@ -1,6 +1,6 @@
 import pygame, time
 from IansClasses import *
-
+from phonezoom import currentcall
 pygame.init()
 running = True
 WHITE = (255, 255, 255)
@@ -34,7 +34,18 @@ class CreateText:
         self.text = None
         self.color = (0, 0, 0)
 
+        all_sprites_list.remove(phone)
+        all_sprites_list.update()
+        all_sprites_list.draw(screen)
+        screen.fill(WHITE)
 
+
+        callbground = pygame.image.load("assets/Phone Zoom.png")
+        screen.blit(callbground, (0,0))
+
+        callwindow = pygame.image.load("assets/Text box.png")
+        screen.blit(callwindow, TOPLEFT)
+        pygame.display.flip()
 
         self.font = pygame.font.Font("assets/Phone Font.ttf", 50)
         self.lines = []
@@ -54,8 +65,6 @@ class CreateText:
         self.AddText(object.ps[6][4], 1250, 64)
         self.AddText(object.ps[6][5], 1500, 64)
 
-    def DrawMapNames
-
     def SetColor(self, r=0, g=0, b=0):
         self.color = (r, g, b)
 
@@ -73,7 +82,7 @@ class CreateText:
 
 
 def PhoneScript():
-    opener = open("assets/Phone_Scripts.txt", "r")
+    opener = open("assets/Phone Scripts.txt", "r")
     temp = opener.read()
     temp2 = temp.split("*")
 
@@ -125,19 +134,6 @@ class PhoneCall:
 
 
         self.choice = None
-
-        all_sprites_list.remove(phone)
-        all_sprites_list.update()
-        all_sprites_list.draw(screen)
-        screen.fill(WHITE)
-
-
-        callbground = pygame.image.load("assets/Phone Zoom.png")
-        screen.blit(callbground, (0,0))
-
-        callwindow = pygame.image.load("assets/Text box.png")
-        screen.blit(callwindow, TOPLEFT)
-        pygame.display.flip()
 
     def GetPhoneScript(self):
         self.phonescript = PhoneScript()
@@ -194,14 +190,15 @@ class PhoneCall:
         elif self.callscreen == -1:
             self.drawer4 = CreateText()
             self.drawer4.ClearDisplayText()
-            self.finalstring = (self.choice + "... " + self.ps[self.index][5])
+            self.finalstring = (self.ps[self.index][5]
+            + " " + self.choice + "... " + self.ps[self.index][6])
             self.drawer4.AddText("Continue...", 1500, 64)
             self.drawer4.AddText(self.finalstring)
             self.drawer4.ShowDisplayText()
             pygame.display.flip()
 
 
-call = PhoneCall("landlord")
+call = PhoneCall(currentcall)
 call.ChangeScreen()
 
 def CallTracking(var):

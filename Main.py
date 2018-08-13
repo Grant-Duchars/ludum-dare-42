@@ -36,7 +36,7 @@ class Main():
         # Init DetectMouse
         self.detect_mouse = DetectMouse.Detect_Mouse()
         # Create Districts
-        self.district1 = District.Create_District("District1", randint(-20,20), randint(200000,250000),   300000)
+        self.district1 = District.Create_District("District1", randint(-20,20), randint(200000,250000),   300000) #(name, reputation, startpop, maxpop)
         self.district2 = District.Create_District("District2", randint(-20,20), randint(200000,300000),   500000)
         self.district3 = District.Create_District("District3", randint(-20,20), randint(500000,700000),   1000000)
         self.district4 = District.Create_District("District4", randint(-20,20), randint(600000,1000000),  1250000)
@@ -44,6 +44,9 @@ class Main():
         self.district6 = District.Create_District("District6", randint(-20,20), randint(800000,1000000),  1200000)
         self.district7 = District.Create_District("District7", randint(-20,20), randint(500000,700000),   900000)
         self.district8 = District.Create_District("District8", randint(-20,20), randint(500000,700000),   750000)
+        self.district_array = [self.district1, self.district2,
+        self.district3, self.district4, self.district5,
+        self.district6, self.district7, self.district8]
         # Gets current pop
         self.startPop = self.district1.getPop() + self.district2.getPop() + self.district3.getPop() + self.district4.getPop() + self.district5.getPop() + self.district6.getPop() + self.district7.getPop() + self.district8.getPop()
         # Generates main goal
@@ -55,7 +58,10 @@ class Main():
         # Init Contacts Screen
         self.contact_book = ContactBook.Contact_Book(self.screen_width, self.screen_height)
         # Init Computer Screen
-        self.computer_screen = ComputerScreen.Computer_Screen(self.screen_width, self.screen_height)
+        self.computer_screen = ComputerScreen.Computer_Screen(self.screen_width,
+        self.screen_height,
+        self.district_array
+        )
         # Init Newspaper Screen
         self.newspaper_screen = NewspaperScreen.Newspaper_Screen(self.screen_width, self.screen_height)
         # Init Phone Screen
