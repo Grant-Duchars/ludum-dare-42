@@ -1,6 +1,6 @@
 import pygame as pg, sys, math, time, os, ctypes, platform
 from random import randint
-from source import MainMenu, DetectMouse, FolderScreen, ContactBook, ComputerScreen, NewspaperScreen, District, Turns, PhoneScreen
+from source import MainMenu, DetectMouse, FolderScreen, ContactBook, ComputerScreen, NewspaperScreen, District, Turns, PhoneScreen, CreateText
 
 class Main():
 
@@ -28,7 +28,6 @@ class Main():
         self.startPop = 0
         self.popGoal = 0
         self.phoneActive = False
-        self.callActive = False
 
     def runGame(self):
         """Runs the Game"""
@@ -38,17 +37,68 @@ class Main():
         # Init DetectMouse
         self.detect_mouse = DetectMouse.Detect_Mouse()
         # Create Districts
-        self.district1 = District.Create_District("District1", randint(-20,20), randint(200000,250000),   300000) #(name, reputation, startpop, maxpop)
-        self.district2 = District.Create_District("District2", randint(-20,20), randint(200000,300000),   500000)
-        self.district3 = District.Create_District("District3", randint(-20,20), randint(500000,700000),   1000000)
-        self.district4 = District.Create_District("District4", randint(-20,20), randint(600000,1000000),  1250000)
-        self.district5 = District.Create_District("District5", randint(-20,20), randint(1500000,1750000), 2000000)
-        self.district6 = District.Create_District("District6", randint(-20,20), randint(800000,1000000),  1200000)
-        self.district7 = District.Create_District("District7", randint(-20,20), randint(500000,700000),   900000)
-        self.district8 = District.Create_District("District8", randint(-20,20), randint(500000,700000),   750000)
-        self.district_array = [self.district1, self.district2,
-        self.district3, self.district4, self.district5,
-        self.district6, self.district7, self.district8]
+        self.district1 = District.Create_District("Shade", randint(-20,20), randint(0,2), randint(200000,250000),   300000) #(name, reputation, type startpop, maxpop)
+        self.district2 = District.Create_District("Zen", randint(-20,20), randint(0,2), randint(200000,300000),   500000)
+        self.district3 = District.Create_District("Venom", randint(-20,20), randint(0,2), randint(500000,700000),   1000000)
+        self.district4 = District.Create_District("Glove", randint(-20,20), randint(0,2), randint(600000,1000000),  1250000)
+        self.district5 = District.Create_District("Hacks", randint(-20,20), randint(0,2), randint(1500000,1750000), 2000000)
+        self.district6 = District.Create_District("Data", randint(-20,20), randint(0,2), randint(800000,1000000),  1200000)
+        self.district7 = District.Create_District("Mercury", randint(-20,20), randint(0,2), randint(500000,700000),   900000)
+        self.district8 = District.Create_District("Circuit", randint(-20,20), randint(0,2), randint(500000,700000),   750000)
+        self.government = self.district8 = District.Create_District("Government", 15)
+
+        self.district_pops = [self.district1.getPop(), self.district2.getPop(),
+        self.district3.getPop(), self.district4.getPop(), self.district5.getPop(),
+        self.district6.getPop(), self.district7.getPop(), self.district8.getPop()]
+
+        self.district_reps = [self.district1.getRep(), self.district2.getRep(),
+        self.district3.getRep(), self.district4.getRep(), self.district5.getRep(),
+        self.district6.getRep(), self.district7.getRep(), self.district8.getRep()]
+
+        self.district_exact_reps = [self.district1.getExactRep(), self.district2.getExactRep(),
+        self.district3.getExactRep(), self.district4.getExactRep(), self.district5.getExactRep(),
+        self.district6.getExactRep(), self.district7.getExactRep(), self.district8.getExactRep()]
+
+        self.district_max_pops = [self.district1.getMaxPop(), self.district2.getMaxPop(),
+        self.district3.getMaxPop(), self.district4.getMaxPop(), self.district5.getMaxPop(),
+        self.district6.getMaxPop(), self.district7.getMaxPop(), self.district8.getMaxPop()]
+
+        self.district_types = [self.district1.getType(), self.district2.getType(),
+        self.district3.getType(), self.district4.getType(), self.district5.getType(),
+        self.district6.getType(), self.district7.getType(), self.district8.getType()]
+
+        self.total_pop = 0
+        self.total_rep = 0
+        self.gov_rep = self.government.getRep()
+
+        for x in range(len(self.district_pops)):
+            self.total_pop += self.district_pops[x]
+
+        for x in range(len(self.district_exact_reps)):
+            self.total_rep += self.district_exact_reps[x]
+            self.total_rep /= len(self.district_exact_reps)
+
+        if self.total_rep < -100:
+            self.total_rep = "Rebellious"
+        elif self.total_rep >= -100 and self.total_rep < -50:
+            self.total_rep = "Fearful"
+        elif self.total_rep >= -50 and self.total_rep < -10:
+            self.total_rep = "Scared"
+        elif self.total_rep >= -10 and self.total_rep <= 10:
+            self.total_rep = "Neutral"
+        elif self.total_rep > 10 and self.total_rep <= 50:
+            self.total_rep = "Liked"
+        elif self.total_rep > 50:
+            self.total_rep = "Favored"
+
+
+        print(self.district_pops)
+        print(self.district_reps)
+        print(self.district_max_pops)
+        print(self.district_types)
+
+        #Create drawing object
+        self.drawer = CreateText.CreateText(self.screen_width, self.screen_height)
         # Gets current pop
         self.startPop = self.district1.getPop() + self.district2.getPop() + self.district3.getPop() + self.district4.getPop() + self.district5.getPop() + self.district6.getPop() + self.district7.getPop() + self.district8.getPop()
         # Generates main goal
@@ -56,13 +106,15 @@ class Main():
         # Init Turns
         self.turnManager = Turns.Turns(21, self.startPop, self.popGoal)
         # Init Folder Screen
-        self.folder_screen = FolderScreen.Folder(self.screen_width, self.screen_height)
+        self.folder_screen = FolderScreen.Folder(self.screen_width, self.screen_height, self.startPop, self.popGoal)
         # Init Contacts Screen
         self.contact_book = ContactBook.Contact_Book(self.screen_width, self.screen_height)
         # Init Computer Screen
         self.computer_screen = ComputerScreen.Computer_Screen(self.screen_width,
-        self.screen_height,
-        self.district_array
+        self.screen_height, self.drawer,
+        self.district_pops, self.district_reps,
+        self.district_max_pops, self.district_types,
+        self.total_pop, self.total_rep, self.gov_rep
         )
         # Init Newspaper Screen
         self.newspaper_screen = NewspaperScreen.Newspaper_Screen(self.screen_width, self.screen_height)
@@ -105,8 +157,9 @@ class Main():
                         if self.detect_mouse.MouseCheck(0,122*math.floor(self.screen_width/1920),954*math.floor(self.screen_height/1080),1080*math.floor(self.screen_height/1080)) == True:
                             self.main_menu.runScreen()
                             self.curScreen = 0
-                elif self.curScreen == 3:
+                elif self.curScreen == 3: # COMPUTER
                     if event.type == pg.MOUSEBUTTONDOWN:
+
                         if self.detect_mouse.MouseCheck(0,122*math.floor(self.screen_width/1920),954*math.floor(self.screen_height/1080),1080*math.floor(self.screen_height/1080)) == True:
                             self.main_menu.runScreen()
                             self.curScreen = 0
@@ -116,6 +169,8 @@ class Main():
                             self.phone_screen.clickButton()
                             if self.phone_screen.checkNum() == True:
                                 self.phoneActive = True
+                        elif self.phoneActive == True:
+                            self.main_menu.runScreen()
                         if self.detect_mouse.MouseCheck(0,122*math.floor(self.screen_width/1920),954*math.floor(self.screen_height/1080),1080*math.floor(self.screen_height/1080)) == True:
                             self.main_menu.runScreen()
                             self.curScreen = 0
@@ -133,7 +188,7 @@ class Main():
                                 self.phone_screen.ChangeScreen(3)
                             elif self.phone_screen.CallTracking() == -1:
                                 self.phone_screen.ChangeScreen(-1)
-                    
+
                 elif self.curScreen == 5:
                     if event.type == pg.MOUSEBUTTONDOWN:
                         if self.detect_mouse.MouseCheck(0,122*math.floor(self.screen_width/1920),954*math.floor(self.screen_height/1080),1080*math.floor(self.screen_height/1080)) == True:

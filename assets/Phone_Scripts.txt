@@ -1,0 +1,35 @@
+Army: 
+
+
+"Would you like to attack with overwhelming force?", "Roger that!", "If you say so sir...", "Sir, what areas would you like us to decimate?", 	"... Roger that!"
+
+
+*Mob: 
+
+
+
+"You want to make people listen?", "Alright.", "Whatever you want boss...", "Whose arm should we pull?", "You got it."
+
+
+*Police: 
+
+
+
+"You want us to move people around?", "Affirmitive.", "Your word is the law...", "Who do we need to move?", "Copy that."
+
+*Looters: 
+
+
+
+"You need food to disappear?", "Consider it done.", "We'll still be eating tonight.", "Which stores are we looting?", "Bet"
+
+*Power:
+
+"You want us to turn off the lights?", "t'll be like an EMP Blast.", "Whatever you say.", "Which grids are we shutting down?", "Lights out."
+
+
+*Landlord: 
+
+
+
+"You want people evicted?", "Show me the money.", "I knew you were too soft", "Who do you want to leave?", "Well as long as somebody is paying me."
