@@ -239,6 +239,7 @@ class Main():
                                     self.folder_screen.missionUpdate(self.total_pop, self.district1.getPop(), self.district2.getPop(),
                                     self.district3.getPop(), self.district4.getPop(), self.district5.getPop(),
                                     self.district6.getPop(), self.district7.getPop(), self.district8.getPop())
+                                    self.turnManager.endTurn(self.total_pop)
                                 else:
                                     print ("Out of actions, please end turn")
                                 print (self.turnManager.actions)
